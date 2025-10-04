@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 11:19:20 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:35:49 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 23:54:36 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -20,7 +20,7 @@ import path from 'path'
  */
 export async function loadEncryptedEnvx(): Promise<void> {
   try {
-    log.info('Starting loadEncryptedEnvx()')
+    log.info('Loading encrypted environment variables...')
     const envPath = path.join(__dirname, '../../env/.env.production')
 
     const dotenvx = await import('@dotenvx/dotenvx')

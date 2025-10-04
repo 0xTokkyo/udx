@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 15:04:32 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:52:23 by 0xTokkyo                                    */
+/*   Updated: 2025-10-05 00:52:48 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -43,7 +43,7 @@ export async function registerIpcHandlers(): Promise<void> {
 
     // Lazy load electron-store if not already initialized, with encryption.
     if (!store) {
-      log.warn('Store is not initialized. Initializing now...')
+      log.debug('Store is not initialized. Initializing now...')
 
       try {
         const Store = (await import('electron-store')).default

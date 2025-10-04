@@ -6,10 +6,11 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 02:46:27 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 21:49:21 by 0xTokkyo                                    */
+/*   Updated: 2025-10-05 00:50:16 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
+import { app } from 'electron'
 import {
   loadEncryptedEnvx,
   log,
@@ -20,8 +21,7 @@ import {
   getAllWindows,
   unregisterGlobalShortcuts
 } from '@main/core'
-import { initializeProtocols } from '@main/services/protocoles'
-import { app } from 'electron'
+import { initializeProtocols, setDiscordActivity } from '@main/services'
 
 /**
  * @file src/main/index.ts
@@ -67,6 +67,12 @@ async function initializeMainProcess(): Promise<void> {
      * @returns {Promise<void>}
      */
     await createTray()
+
+    /**
+     * Set Discord Rich Presence activity
+     * @returns {Promise<void>}
+     */
+    await setDiscordActivity()
 
     log.info('UDX is starting.')
   } catch (error: Error | unknown) {

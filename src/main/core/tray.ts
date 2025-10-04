@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 19:06:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 21:34:03 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 23:54:26 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -41,6 +41,8 @@ const TRAY_ICON_PATH = path.join(
  */
 export async function createTray(): Promise<Tray> {
   try {
+    log.info('Creating Tray instance...')
+
     let tray: Tray | null = getTray()
 
     if (!tray) {

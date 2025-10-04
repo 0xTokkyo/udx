@@ -6,13 +6,13 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:55:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:54:35 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 23:43:59 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import { UDXPossibleWindows, UDXWindowMetadata, UDXWindowsPayload } from '@main/types'
-import { is, log } from '@main/core'
+import { is, log, platform } from '@main/core'
 import path from 'path'
 
 /**
@@ -99,12 +99,22 @@ export async function createWindow(
 ): Promise<string> {
   try {
     const defaultWindowsOptions: BrowserWindowConstructorOptions = {
-      width: 1480,
-      minWidth: 1480,
-      height: 860,
-      minHeight: 860,
+      width: 1080,
+      minWidth: 1080,
+      height: 800,
+      minHeight: 800,
+      transparent: true,
+      skipTaskbar: true,
+      thickFrame: false,
+      roundedCorners: false,
+      title: 'Uxon Dynamics',
       frame: false,
-      show: false
+      show: false,
+      webPreferences: {
+        spellcheck: false,
+        enableWebSQL: false,
+        sandbox: false
+      }
     }
 
     const finalOptions = windowOptions || defaultWindowsOptions
@@ -118,6 +128,9 @@ export async function createWindow(
         ...finalOptions.webPreferences
       }
     })
+
+    // Special blur effect for Windows when transparency is enabled, vibrancy on macOS
+    platform.isMacOS ? window.setVibrancy('hud') : window.setBackgroundMaterial('acrylic')
 
     // Generate unique ID for this window
     const windowId = generateWindowId()
@@ -148,6 +161,12 @@ export async function createWindow(
     // Add to UDXWindows registry
     UDXWindows.set(windowId, metadata)
     log.info(`Window ${windowId} created and registered`)
+
+    // Show window when ready
+    window.once('ready-to-show', () => {
+      window.show()
+      return windowId
+    })
 
     return windowId
   } catch (error: Error | unknown) {
