@@ -1,4 +1,16 @@
 #!/usr/bin/env node
+/* ***************************************************************************** */
+/*                                                          __  __ ____  _  __   */
+/*                                                         / / / // __ \| |/ /   */
+/*   create-udx-component.mts                             / / / // / / /|   /    */
+/*                                                       / /_/ // /_/ //   |     */
+/*   By: 0xTokkyo                                        \____//_____//_/|_|     */
+/*                                                                               */
+/*   Created: 2025-10-04 12:06:58 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 12:07:31 by 0xTokkyo                                    */
+/*                                                                               */
+/* ***************************************************************************** */
+
 import { existsSync, mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 import { fileURLToPath } from 'url'
@@ -30,7 +42,6 @@ const __dirname = dirname(__filename)
  *   2. ComponentName: Name of the UDX React component to create
  * Usage: node mts/create-udx-component.ts <folder-name> <ComponentName>
  * Exemple: node mts/create-udx-component.ts composant-test ComposantTest
- * @author 0xTokkyo
  */
 
 interface ComponentConfig {

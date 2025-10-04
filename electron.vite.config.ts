@@ -5,15 +5,36 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   main: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [externalizeDepsPlugin()],
+    build: {
+      rollupOptions: {
+        output: {
+          format: 'es',
+          entryFileNames: '[name].js'
+        }
+      }
+    },
+    resolve: {
+      alias: {
+        '@main': resolve('src/main'),
+        '@preload': resolve('src/preload')
+      }
+    }
   },
   preload: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [externalizeDepsPlugin()],
+    resolve: {
+      alias: {
+        '@main': resolve('src/main'),
+        '@preload': resolve('src/preload'),
+        '@renderer': resolve('src/renderer/src'),
+        '@': resolve('src/renderer/src')
+      }
+    }
   },
   renderer: {
     resolve: {
       alias: {
-        '@main': resolve('src/main'),
         '@preload': resolve('src/preload'),
         '@renderer': resolve('src/renderer/src'),
         '@': resolve('src/renderer/src')

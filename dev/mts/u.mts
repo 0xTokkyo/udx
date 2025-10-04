@@ -1,11 +1,14 @@
-/**
- * Shared utilities and common code for UDX scripts
- * @author 0xTokkyo
- */
-
-// ============================================================================
-// TYPES AND INTERFACES
-// ============================================================================
+/* ***************************************************************************** */
+/*                                                          __  __ ____  _  __   */
+/*                                                         / / / // __ \| |/ /   */
+/*   u.mts                                                / / / // / / /|   /    */
+/*                                                       / /_/ // /_/ //   |     */
+/*   By: 0xTokkyo                                        \____//_____//_/|_|     */
+/*                                                                               */
+/*   Created: 2025-10-04 12:06:41 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 12:06:47 by 0xTokkyo                                    */
+/*                                                                               */
+/* ***************************************************************************** */
 
 export interface BaseResult {
   readonly success: boolean
@@ -25,10 +28,6 @@ export class BaseError extends Error {
   }
 }
 
-// ============================================================================
-// COLORS AND STYLING
-// ============================================================================
-
 export const colors = {
   reset: '\x1b[0m',
   bright: '\x1b[1m',
@@ -41,10 +40,6 @@ export const colors = {
   udx: '\x1b[38;5;208m',
   udxBg: '\x1b[48;5;208m'
 } as const
-
-// ============================================================================
-// LOGGING UTILITIES
-// ============================================================================
 
 export type LogType = 'info' | 'warn' | 'error'
 
@@ -66,10 +61,6 @@ export function createLogger(scriptName: string) {
   }
 }
 
-// ============================================================================
-// ERROR HANDLING UTILITIES
-// ============================================================================
-
 export function createError<T extends string>(
   code: T,
   message: string,
@@ -86,10 +77,6 @@ export function formatErrorMessage(error: unknown): string {
   return String(error)
 }
 
-// ============================================================================
-// RESULT UTILITIES
-// ============================================================================
-
 export function createSuccessResult(message: string): BaseResult {
   return {
     success: true,
@@ -104,10 +91,6 @@ export function createErrorResult(error: BaseError): BaseResult {
     error
   }
 }
-
-// ============================================================================
-// STRING UTILITIES
-// ============================================================================
 
 export function toPascalCase(str: string): string {
   return str
@@ -131,10 +114,6 @@ export function sanitizeForCssClassName(input: string): string {
     .toLowerCase()
     .replace(/^[^a-zA-Z]+/, '')
 }
-
-// ============================================================================
-// VALIDATION UTILITIES
-// ============================================================================
 
 export function isValidComponentName(name: string): boolean {
   return /^[A-Z][a-zA-Z0-9]*$/.test(name)

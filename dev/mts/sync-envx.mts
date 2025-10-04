@@ -1,4 +1,16 @@
 #!/usr/bin/env node
+/* ***************************************************************************** */
+/*                                                          __  __ ____  _  __   */
+/*                                                         / / / // __ \| |/ /   */
+/*   sync-envx.mts                                        / / / // / / /|   /    */
+/*                                                       / /_/ // /_/ //   |     */
+/*   By: 0xTokkyo                                        \____//_____//_/|_|     */
+/*                                                                               */
+/*   Created: 2025-10-04 12:07:14 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 12:07:22 by 0xTokkyo                                    */
+/*                                                                               */
+/* ***************************************************************************** */
+
 import { copyFileSync, existsSync } from 'fs'
 import { execSync } from 'child_process'
 import { join } from 'path'
@@ -18,7 +30,6 @@ import {
  * The script assumes that dotenvx is installed as a dev dependency in the project.
  *
  * Usage: node mts/sync-envx.ts
- * @author 0xTokkyo
  */
 
 interface SyncConfig {

@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "UDX — Star Citizen companion app by Uxon Dynamics",
   "main": "./out/main/index.js",
+  "type": "module",
   "author": "https://uxondynamics.com",
   "homepage": "https://uxondynamics.com",
   "scripts": {

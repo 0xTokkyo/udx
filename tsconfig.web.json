@@ -13,18 +13,9 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/renderer/src/*"
-      ],
-      "@main/*": [
-        "src/main/*"
-      ],
-      "@preload/*": [
-        "src/preload/*"
-      ],
-      "@renderer/*": [
-        "src/renderer/src/*"
-      ]
+      "@preload/*": ["src/preload/*"],
+      "@renderer/*": ["src/renderer/src/*"],
+      "@/*": ["src/renderer/src/*"]
     }
   }
 }
