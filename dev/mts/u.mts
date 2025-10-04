@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 12:06:41 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 12:06:47 by 0xTokkyo                                    */
+/*   Updated: 2025-10-05 01:41:30 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -49,7 +49,7 @@ export function createLogger(scriptName: string) {
 
     switch (type) {
       case 'info':
-        console.info(`${prefix} ${colors.green}${message}${colors.reset}`)
+        console.info(`${prefix} ${colors.cyan}${message}${colors.reset}`)
         break
       case 'warn':
         console.warn(`${prefix} ${colors.yellow}${message}${colors.reset}`)

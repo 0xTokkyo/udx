@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:35:59 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:36:17 by 0xTokkyo                                    */
+/*   Updated: 2025-10-05 00:58:33 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -52,4 +52,19 @@ export interface UDXWindowMetadata {
   isMinimized: boolean
   isMaximized: boolean
   isFocused: boolean
+}
+
+export interface ModelInfo {
+  filename: string
+  format: string
+  size: number
+  url: string
+  lastModified: string
+}
+
+export interface ModelsManifest {
+  version: string
+  models: {
+    [key: string]: ModelInfo
+  }
 }
