@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 02:46:27 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 21:26:54 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 21:49:21 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -56,11 +56,6 @@ async function initializeMainProcess(): Promise<void> {
      * @returns {Promise<void>}
      */
     await registerIpcHandlers()
-
-    /**
-     * Wait for app to be ready before creating windows
-     */
-    await app.whenReady()
 
     /**
      * Create the first application window
