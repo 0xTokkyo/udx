@@ -1,0 +1,7 @@
+[
+  {
+    "key": "shift+cmd+n",
+    "command": "workbench.action.tasks.runTask",
+    "args": "UDX: New React TSX component"
+  }
+]

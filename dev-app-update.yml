@@ -1,0 +1,3 @@
+provider: generic
+url: https://uxondynamics.com/auto-updates
+updaterCacheDirName: uxondynamics-app-updater

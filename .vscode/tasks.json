@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "UDX: New React TSX component",
+      "type": "shell",
+      "command": "npx",
+      "args": [
+        "tsx",
+        "mts/create-udx-component.ts",
+        "${input:folderName}",
+        "${input:componentName}"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "folderName",
+      "description": "Name of the folder to create the UDX component",
+      "default": "",
+      "type": "promptString"
+    },
+    {
+      "id": "componentName",
+      "description": "Name of the UDX React component to create",
+      "default": "",
+      "type": "promptString"
+    }
+  ]
+}

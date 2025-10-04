@@ -1,0 +1,102 @@
+/* animations.css */
+@keyframes indicator-spacer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+    width: 5rem;
+  }
+}
+
+@keyframes als {
+  0% {
+    left: 0px;
+    width: 12px;
+  }
+  50% {
+    left: calc(100% - 12px);
+    width: 100%;
+  }
+  100% {
+    width: 12px;
+  }
+}
+
+@keyframes absolute-moving-noise-animation {
+  0% {
+    transform: translate3d(1%, -1%, 0)
+  }
+  10% {
+    transform: translate3d(-5%, -2%, 0)
+  }
+  20% {
+    transform: translate3d(10%, 5%, 0)
+  }
+  30% {
+    transform: translate3d(5%, -11%, 0)
+  }
+  40% {
+    transform: translate3d(-12%, -5%, 0)
+  }
+  50% {
+    transform: translate3d(10%, 9%, 0)
+  }
+  60% {
+    transform: translate3d(15%, 0, 0)
+  }
+  70% {
+    transform: translate3d(-10%, 8%, 0)
+  }
+  80% {
+    transform: translate3d(10%, 2%, 0)
+  }
+  90% {
+    transform: translate3d(-1%, 5%, 0)
+  }
+  to {
+    transform: translate3d(0, 8%, 0)
+  }
+}
+
+@keyframes scroll-infinite-y {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes spinner-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink-soft {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
