@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:55:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:36:56 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 20:54:35 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -91,6 +91,7 @@ function setupWindowListeners(metadata: UDXWindowMetadata): void {
  * @param windowOptions - Optional BrowserWindow options
  * @returns {Promise<string>} Window ID
  * @throws {Error} If window creation fails
+ * @example const windowId = await createWindow({ type: 'main', rendererHTMLFile: 'index' })
  */
 export async function createWindow(
   payload: UDXWindowsPayload,

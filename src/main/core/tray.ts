@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 19:06:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:34:38 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 21:34:03 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -30,9 +30,9 @@ import path from 'path'
 // CONSTANTS
 const TRAY_ICON_PATH = path.join(
   __dirname,
-  '../../ressources/icons',
+  '../../resources/icons',
   'udx-icons-multisize',
-  'udx-icon-16x16.png'
+  'udx-icon-16.png'
 )
 
 /**

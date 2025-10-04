@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 12:51:33 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:35:39 by 0xTokkyo                                    */
+/*   Updated: 2025-10-04 21:18:54 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -85,7 +85,7 @@ async function ensureDirectory(dirPath: string): Promise<void> {
   try {
     await ensureDir(dirPath)
     logger.debug(`Directory ensured: ${dirPath}`)
-  } catch (error) {
+  } catch (error: Error | unknown) {
     const message = `Failed to create directory: ${dirPath}`
     logger.error(message, error)
     throw new Error(message)
@@ -107,7 +107,7 @@ async function createSettingsFileIfNotExists(filePath: string): Promise<void> {
     } else {
       logger.debug(`Settings file already exists: ${filePath}`)
     }
-  } catch (error) {
+  } catch (error: Error | unknown) {
     const message = `Failed to create settings file: ${filePath}`
     logger.error(message, error)
     throw new Error(message)
@@ -129,7 +129,7 @@ async function createModsFileIfNotExists(filePath: string): Promise<void> {
     } else {
       logger.debug(`Mods file already exists: ${filePath}`)
     }
-  } catch (error) {
+  } catch (error: Error | unknown) {
     const message = `Failed to create mods file: ${filePath}`
     logger.error(message, error)
     throw new Error(message)
@@ -176,7 +176,7 @@ export async function initializeAppData(): Promise<void> {
     await ensureDirectory(modelsDir)
 
     logger.main.info('Application data initialization completed successfully')
-  } catch (error) {
+  } catch (error: Error | unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error occurred'
     logger.main.error('Failed to initialize application data:', message)
     throw new Error(`App data initialization failed: ${message}`)
@@ -228,7 +228,7 @@ export async function loadAppSettings(): Promise<AppSettings> {
     const settings = (await readJson(settingsPath)) as AppSettings
     logger.debug('Settings loaded successfully')
     return settings
-  } catch (error) {
+  } catch (error: Error | unknown) {
     logger.error('Failed to load settings:', error)
     throw new Error('Failed to load application settings')
   }
@@ -249,7 +249,7 @@ export async function saveAppSettings(settings: AppSettings): Promise<void> {
   try {
     await writeJson(settingsPath, settings, { spaces: 2 })
     logger.debug('Settings saved successfully')
-  } catch (error) {
+  } catch (error: Error | unknown) {
     logger.error('Failed to save settings:', error)
     throw new Error('Failed to save application settings')
   }
@@ -264,7 +264,7 @@ export async function readSettings(): Promise<AppSettings> {
   try {
     const settings = await loadAppSettings()
     return settings
-  } catch (error) {
+  } catch (error: Error | unknown) {
     const message = `Failed to read settings: ${error instanceof Error ? error.message : String(error)}`
     logger.error(message)
     throw new Error(message)
@@ -280,7 +280,7 @@ export async function readSettings(): Promise<AppSettings> {
 export async function writeSettings(settings: AppSettings): Promise<void> {
   try {
     await saveAppSettings(settings)
-  } catch (error) {
+  } catch (error: Error | unknown) {
     const message = `Failed to write settings: ${error instanceof Error ? error.message : String(error)}`
     logger.error(message)
     throw new Error(message)
@@ -302,7 +302,7 @@ export async function readModsManager(): Promise<UserMods> {
     const mods = (await readJson(modsPath)) as UserMods
     logger.debug('Mods loaded successfully')
     return mods
-  } catch (error) {
+  } catch (error: Error | unknown) {
     logger.error('Failed to load mods:', error)
     throw new Error('Failed to load user mods')
   }
