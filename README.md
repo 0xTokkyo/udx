@@ -2,20 +2,11 @@
 
 A desktop application built with Electron, React, and TypeScript that serves as the ultimate companion app for Star Citizen players. UDX provides real-time data management, organizational tools, and seamless integration with the Star Citizen universe through secure communication with [UDX-SERVER](https://github.com/0xTokkyo/udx-server).
 
-[UDX HANGAR](https://github.com/user-attachments/assets/efd5f489-5284-41e8-82e2-6c2e073634d5)
+## App Preview
 
-## Overview
+https://github.com/user-attachments/assets/9687a732-4710-4d4b-8fce-f43f404bdbc2
 
-UDX is designed to enhance the Star Citizen experience by providing:
-
-- CLI for development and project management
-- Cross-platform desktop application (Windows, macOS, Linux)
-- Real-time communication with UDX-SERVER via REST API and WebSocket
-- Secure authentication and data synchronization
-- Modern React-based UI with Three.js 3D integration
-- Discord Rich Presence integration and OAuth2 authentication
-- Encrypted environment configuration
-- Auto-updater functionality
+https://github.com/user-attachments/assets/73da83ab-2630-43e1-b75b-579594d5715f
 
 ## Quick Setup
 
@@ -32,7 +23,33 @@ npm genesis
 
 That's it! The app will launch in development mode with hot reloading enabled.
 
-[UDX BUILDS](https://github.com/user-attachments/assets/5dc65379-310d-4878-b457-aea88870f6da)
+## And now ? Now it's dev time.
+
+Now, you have access to UDX and can start contributing to it. Feel free to create your first account and register your own Organization!
+
+https://github.com/user-attachments/assets/d1b4472c-a874-4614-97f2-61c4eede218f
+
+## UDX Features
+
+UDX serves as a versatile platform for managing various applications and tools related to Star Citizen. Through its integration with UDX-SERVER, users can access a wide range of features including:
+
+- **Fleet Management**: Organize and track your ships, vehicles, and equipment.
+- **Organization Management**: Manage your guilds, squads, and teams.
+- **Builds Creator**: Create, save, and share ship builds and loadouts with your friends and every UDX user.
+- **Bioticorp**: Explore, create and download character models. Install them in-game directly with UDX.
+- **Role Management**: Manage and display your roles inside and outside your Organization.
+- **Keybinds**: Manage and display your keybinds for different ships and vehicles (Never lose them again).
+- **Inventory Tracking**: Keep track of your in-game assets and resources.
+- **Event Scheduling**: Schedule and manage events with your friends with calendar integration.
+- **Communication**: Integrated 3D map and pin coordination for team.
+- **UEC Loaner**: Manage the UEC of your guild, loan UEC to members, and track repayments.
+- **3D Visualization**: Explore ships, vehicles, objects in 3D. Print or export them.
+
+- **YOUR APP HERE**: UDX is designed to be extensible. Developers can create and integrate their own applications and tools into the UDX ecosystem.
+
+## Mods
+
+UDX want to supports community-created mods to extend its functionality. Mods can be easily installed and managed through the UDX interface.
 
 ## Project Structure
 
@@ -75,8 +92,27 @@ udx/
 │           └── utils/                # Utility functions
 └── Configuration files               # Various config files
 ```
+```
+./uxon-dynamics/                      # Hidden user data directory
+├── models/                           # 3D models and assets
+│   └── *.gltf
+├── mods/                             # User-installed mods
+│   ├── usermods.json                 # User mods metadata
+│   └── udx-mods.json                 # Official mods metadata
+├── useroptions.json                  # User settings and preferences
+└── udx-options.json                  # Application configuration
+```
 
-## Architecture
+## Achitecture Overview
+
+- Cross-platform desktop application (Windows, macOS, Linux)
+- Fully Isolated Renderer process with IPC
+- Real-time communication with UDX-SERVER via REST API and WebSocket
+- Secure authentication via OAuth2 w Discord and data synchronization
+- Modern React-based UI with Three.js 3D integration
+- Discord Rich Presence integration and OAuth2 authentication
+- Encrypted environment configuration
+- Auto-updater functionality
 
 UDX follows a modern Electron architecture with clear separation of concerns:
 
@@ -392,10 +428,13 @@ Built applications are output to the `dist/` directory:
 
 ### Development Guidelines
 - Follow TypeScript best practices
+- Use the udx-header.vsix extension
 - Write meaningful component names and props
 - Use the provided utilities and hooks
 - Maintain consistent styling with Tailwind CSS
 - Test your changes across platforms when possible
+
+https://github.com/user-attachments/assets/61827447-471b-4f5d-ba48-c76d490436f3
 
 ## License
 
