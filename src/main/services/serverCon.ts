@@ -6,12 +6,12 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-07 18:03:31 by 0xTokkyo                                    */
-/*   Updated: 2025-10-07 19:52:21 by 0xTokkyo                                    */
+/*   Updated: 2025-10-07 20:10:36 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
 import { log } from '@main/core'
-import { api } from './api'
+import { api } from '.'
 
 /**
  * @file src/main/services/serverCon.ts
