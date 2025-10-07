@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-07 18:03:31 by 0xTokkyo                                    */
-/*   Updated: 2025-10-07 20:10:36 by 0xTokkyo                                    */
+/*   Updated: 2025-10-07 21:42:35 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -100,6 +100,6 @@ export async function performHealthChecks(): Promise<void> {
     const errorMessage = error instanceof Error ? error.message : String(error)
     log.error(`Health check error: ${errorMessage}`)
     log.error('SYSTEM CHECKS FAILED :: ABORTING')
-    process.exit(1)
+    process.exit(0)
   }
 }

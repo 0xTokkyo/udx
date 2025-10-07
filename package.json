@@ -15,6 +15,7 @@
     "url": "https://github.com/0xTokkyo/udx/issues"
   },
   "scripts": {
+    "cli": "tsx ./dev/mts/cli.mts",
     "sync-envx": "tsx ./dev/mts/sync-envx.mts",
     "create:component": "tsx ./dev/mts/create-udx-component.mts",
     "format": "prettier --write .",
@@ -30,7 +31,8 @@
     "build:mac": "npm run sync-envx && dotenvx run -f ./env/.env -- npm run build && electron-builder --mac",
     "build:linux": "npm run sync-envx && dotenvx run -f ./env/.env -- npm run build && electron-builder --linux",
     "start": "npm run sync-envx && dotenvx run -f ./env/.env -- electron-vite preview",
-    "postinstall": "npm run sync-envx && dotenvx run -f ./env/.env -- npm run server:install && electron-builder install-app-deps"
+    "postinstall": "npm run sync-envx && dotenvx run -f ./env/.env -- npm run server:install && electron-builder install-app-deps",
+    "genesis": "npm install && npm run postinstall && npm run cli"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.51.0",
@@ -56,6 +58,7 @@
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-electron-fs-backend": "^3.0.3",
     "i18next-http-backend": "^3.0.2",
+    "inquirer": "^12.9.6",
     "lucide-react": "^0.544.0",
     "posthog-js": "^1.270.1",
     "react-i18next": "^16.0.0",

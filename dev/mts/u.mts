@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 12:06:41 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 01:41:30 by 0xTokkyo                                    */
+/*   Updated: 2025-10-07 21:31:04 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -37,6 +37,7 @@ export const colors = {
   blue: '\x1b[34m',
   magenta: '\x1b[35m',
   cyan: '\x1b[36m',
+  muted: '\x1b[90m',
   udx: '\x1b[38;5;208m',
   udxBg: '\x1b[48;5;208m'
 } as const
