@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 15:04:32 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 00:52:48 by 0xTokkyo                                    */
+/*   Updated: 2025-10-07 19:23:39 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -69,7 +69,7 @@ export async function registerIpcHandlers(): Promise<void> {
     }
 
     // Auto erase auth token in development mode if configured in #globalState.ts
-    if (is.dev && getAutoEraseAuthToken()) store.delete('UdxAppAuthToken')
+    if (is.dev && getAutoEraseAuthToken()) store.delete(import.meta.env.VITE_AUTH_TOKEN)
 
     /**
      * Get value from electron-store
@@ -128,7 +128,7 @@ export async function registerIpcHandlers(): Promise<void> {
           throw new Error('Invalid token')
         }
         // Store directly - electron-store handles encryption automatically
-        store.set('UdxAppAuthToken', token)
+        store.set(import.meta.env.VITE_AUTH_TOKEN, token)
         return true
       } catch (error: Error | unknown) {
         const errMsg: string = `Error storing auth token: ${error instanceof Error ? error.message : String(error)}`
@@ -145,7 +145,7 @@ export async function registerIpcHandlers(): Promise<void> {
       log.info('Starting get-auth-token()')
       try {
         // Get directly - electron-store handles decryption automatically
-        const token = store.get('UdxAppAuthToken') as string
+        const token = store.get(import.meta.env.VITE_AUTH_TOKEN) as string
         return token || null
       } catch (error: Error | unknown) {
         const errMsg: string = `Error retrieving auth token: ${error instanceof Error ? error.message : String(error)}`
@@ -161,7 +161,7 @@ export async function registerIpcHandlers(): Promise<void> {
     ipcMain.handle('clear-auth-token', (): boolean => {
       log.info('IPC clear-auth-token called')
       try {
-        store.delete('UdxAppAuthToken')
+        store.delete(import.meta.env.VITE_AUTH_TOKEN)
         closeAllWindows()
         resetGlobalState()
         app.relaunch()

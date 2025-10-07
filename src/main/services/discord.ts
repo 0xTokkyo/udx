@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-05 00:09:53 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 00:29:15 by 0xTokkyo                                    */
+/*   Updated: 2025-10-06 00:20:33 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -45,7 +45,7 @@ export async function setDiscordActivity(activity?: DiscordRPC.Presence): Promis
     await RPC.setActivity(activity)
   } catch (error: Error | unknown) {
     const errMsg = `Failed to set Discord activity: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
-    return
+    // Log a Warning and not a Error to avoid spamming the logs if Discord is just... not running.
+    log.warn(errMsg)
   }
 }

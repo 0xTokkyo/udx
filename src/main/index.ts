@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 02:46:27 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 00:50:16 by 0xTokkyo                                    */
+/*   Updated: 2025-10-07 19:47:42 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -21,7 +21,7 @@ import {
   getAllWindows,
   unregisterGlobalShortcuts
 } from '@main/core'
-import { initializeProtocols, setDiscordActivity } from '@main/services'
+import { initializeProtocols, setDiscordActivity, performHealthChecks } from '@main/services'
 
 /**
  * @file src/main/index.ts
@@ -38,6 +38,16 @@ async function initializeMainProcess(): Promise<void> {
      * @returns {Promise<void>}
      */
     await loadEncryptedEnvx()
+
+    /**
+     * Ensure the development or live server is running
+     * @description This function checks if the appropriate server is running based on the environment.
+     * If the server is not running, it logs an error and exits the application.
+     * This prevents the application from encountering runtime errors.
+     * @see {@link https://github.com/0xTokkyo/udx-server UDX Server}
+     * @returns {Promise<void>}
+     */
+    await performHealthChecks()
 
     /**
      * Initialize application data and settings
