@@ -2,6 +2,8 @@
 
 A desktop application built with Electron, React, and TypeScript that serves as the ultimate companion app for Star Citizen players. UDX provides real-time data management, organizational tools, and seamless integration with the Star Citizen universe through secure communication with [UDX-SERVER](https://github.com/0xTokkyo/udx-server).
 
+https://github.com/user-attachments/assets/efd5f489-5284-41e8-82e2-6c2e073634d5
+
 ## Overview
 
 UDX is designed to enhance the Star Citizen experience by providing:
@@ -30,30 +32,7 @@ npm genesis
 
 That's it! The app will launch in development mode with hot reloading enabled.
 
-### Manual Setup
-
-If you prefer manual setup or need to run steps individually:
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/0xTokkyo/udx.git
-   cd udx
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Environment configuration**
-   ```bash
-   npm run sync-envx
-   ```
-
-4. **Start development**
-   ```bash
-   npm run dev
-   ```
+https://github.com/user-attachments/assets/5dc65379-310d-4878-b457-aea88870f6da
 
 ## Project Structure
 
