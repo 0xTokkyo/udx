@@ -1,11 +1,34 @@
+/* ***************************************************************************** */
+/*                                                          __  __ ____  _  __   */
+/*                                                         / / / // __ \| |/ /   */
+/*   main.tsx                                             / / / // / / /|   /    */
+/*                                                       / /_/ // /_/ //   |     */
+/*   By: 0xTokkyo                                        \____//_____//_/|_|     */
+/*                                                                               */
+/*   Created: 2025-10-09 18:06:43 by 0xTokkyo                                    */
+/*   Updated: 2025-10-10 21:14:03 by 0xTokkyo                                    */
+/*                                                                               */
+/* ***************************************************************************** */
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import App from '@/App'
+import App from '@/app'
 
 import '@/assets/css/global.css'
 import '@/assets/css/responsive.css'
 import '@/assets/css/app.css'
+import '@/assets/css/ui.css'
+
+import '@/utils/i18n'
+
+/**
+ * @copilot
+ * @copilot-instructions
+ * This Electron Vite React TypeScript project follows specific conventions outlined
+ * in llms.txt, contributing.md and architecture.md located in the root directory.
+ * Please refer to it for helpers, component structure, and project configuration.
+ */
 
 const queryClient = new QueryClient({
   defaultOptions: {

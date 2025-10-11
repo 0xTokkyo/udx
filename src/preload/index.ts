@@ -7,7 +7,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-05 01:00:56 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 01:17:55 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 09:40:45 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -54,7 +54,9 @@ const udxAPI: CustomElectronAPI = {
   // File operations
   file: {
     read: (filePath: string) => ipcRenderer.invoke('read-file', filePath),
-    readSettings: () => ipcRenderer.invoke('read-settings')
+    readSettings: () => ipcRenderer.invoke('read-settings'),
+    writeSettings: (settings: any) => ipcRenderer.invoke('write-settings', settings),
+    createDefaultSettings: () => ipcRenderer.invoke('create-default-settings')
   },
 
   // Logging

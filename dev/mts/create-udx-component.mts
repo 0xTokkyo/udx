@@ -7,7 +7,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 12:06:58 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 12:07:31 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 10:46:17 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -115,7 +115,7 @@ function validateArguments(args: readonly string[]): ComponentResult {
 function createComponentConfig(args: readonly string[]): ComponentConfig {
   const folderName = args[0]!
   const componentName = toPascalCase(args[1]!)
-  const componentsDir = join(__dirname, '..', 'src', 'renderer', 'src', 'components')
+  const componentsDir = join(__dirname, '..', '..', 'src', 'renderer', 'src', 'components')
   const targetDir = join(componentsDir, folderName)
 
   return {
@@ -161,13 +161,43 @@ function generateComponentFiles(config: ComponentConfig): ComponentResult {
       )
     }
 
-    const tsxContent = `import styles from './${cssFileName}.module.css'
+    // Create assets folder
+    const assetsDir = join(config.targetDir, 'assets')
+    mkdirSync(assetsDir, { recursive: true })
+    log('info', `Assets folder created: ${config.folderName}/assets/`)
+
+    // Create locales folder
+    const localesDir = join(config.targetDir, 'locales')
+    mkdirSync(localesDir, { recursive: true })
+    log('info', `Locales folder created: ${config.folderName}/locales/`)
+
+    // Create locale files
+    const locales = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko']
+    const localeContent = `{
+  "${componentName}": {
+    "hello_world": "Hello World."
+}
+`
+
+    locales.forEach((locale) => {
+      const localePath = join(localesDir, `${locale}.json`)
+      writeFileSync(localePath, localeContent, 'utf8')
+    })
+    log('info', `Locale files created: ${locales.map((l) => `${l}.json`).join(', ')}`)
+
+    const tsxContent = `import React from 'react'
+import './index.css'
+
+/**
+ * @file src/renderer/src/components/${componentName}/index.tsx
+ * @description ...
+ */
 
 const ${componentName} = (): React.JSX.Element => {
   return (
-    <>
-      <div className={styles.${cssClassName}}></div>
-    </>
+    <div id="">
+      {/* Component content */}
+    </div>
   )
 }
 
@@ -176,15 +206,12 @@ ${componentName}.displayName = '${componentName}'
 export default ${componentName}
 `
 
-    const cssContent = `/* ${componentName} Component */
-.${cssClassName} {
-  display: flex;
-}`
+    const cssContent = `/* ${componentName}.css */`
 
     const tsxPath = join(config.targetDir, 'index.tsx')
     writeFileSync(tsxPath, tsxContent, 'utf8')
 
-    const cssPath = join(config.targetDir, `${cssFileName}.module.css`)
+    const cssPath = join(config.targetDir, 'index.css')
     writeFileSync(cssPath, cssContent, 'utf8')
 
     return createSuccessResult(

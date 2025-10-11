@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 15:04:32 by 0xTokkyo                                    */
-/*   Updated: 2025-10-07 19:23:39 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 09:43:10 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -14,19 +14,25 @@ import { AppSettings } from '@main/types'
 import {
   access,
   closeAllWindows,
+  closeWindow,
+  createDefaultSettings,
+  getAllWindows,
   getAppDataPath,
   getAutoEraseAuthToken,
   getModelsDirPath,
   getStore,
   is,
   log,
+  maximizeWindow,
+  minimizeWindow,
   readFile,
   readSettings,
   resetGlobalState,
   setIpcHandlersRegistered,
-  setStore
+  setStore,
+  writeSettings
 } from '@main/core'
-import { app, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import path from 'path'
 
 /**
@@ -274,6 +280,39 @@ export async function registerIpcHandlers(): Promise<void> {
     })
 
     /**
+     * Write settings to fs
+     * @param {AppSettings} settings
+     * @returns {Promise<boolean>}
+     */
+    ipcMain.handle('write-settings', async (_event, settings: AppSettings): Promise<boolean> => {
+      log.info('IPC write-settings called')
+      try {
+        await writeSettings(settings)
+        return true
+      } catch (error: Error | unknown) {
+        const errMsg: string = `Error writing settings: ${error instanceof Error ? error.message : String(error)}`
+        log.error(errMsg)
+        return false
+      }
+    })
+
+    /**
+     * Create default settings
+     * @returns {Promise<AppSettings | null>}
+     */
+    ipcMain.handle('create-default-settings', async (): Promise<AppSettings | null> => {
+      log.info('IPC create-default-settings called')
+      try {
+        await createDefaultSettings()
+        return await readSettings()
+      } catch (error: Error | unknown) {
+        const errMsg: string = `Error creating default settings: ${error instanceof Error ? error.message : String(error)}`
+        log.error(errMsg)
+        return null
+      }
+    })
+
+    /**
      * Write log messages from renderer process
      * @param {'info' | 'warn' | 'error' | 'debug'} type
      * @param {string} message
@@ -304,7 +343,101 @@ export async function registerIpcHandlers(): Promise<void> {
       app.exit(0)
     })
 
-    // Mark IPC handlers as registered
+    /**
+     * Close window - called from FrameController.tsx
+     * @returns {void}
+     */
+    ipcMain.on('close-window', (event): void => {
+      log.info('IPC close-window called')
+      try {
+        const senderWindow = BrowserWindow.fromWebContents(event.sender)
+        if (senderWindow) {
+          // Find the window metadata by matching the BrowserWindow instance
+          const allWindows = getAllWindows()
+          for (const metadata of allWindows) {
+            if (metadata.window === senderWindow) {
+              closeWindow(metadata.id)
+
+              const remainingWindows = getAllWindows()
+              if (remainingWindows.length === 0) {
+                log.info('Last window closed, quitting application')
+                app.quit()
+              }
+              return
+            }
+          }
+          log.warn('Window metadata not found, closing window directly')
+          senderWindow.close()
+
+          const remainingWindows = getAllWindows()
+          if (remainingWindows.length === 0) {
+            log.info('Last window closed, quitting application')
+            app.quit()
+          }
+        }
+      } catch (error: Error | unknown) {
+        const errMsg = `Error closing window: ${error instanceof Error ? error.message : String(error)}`
+        log.error(errMsg)
+      }
+    })
+
+    /**
+     * Minimize window - called from FrameController.tsx
+     * @returns {void}
+     */
+    ipcMain.on('minimize-window', (event): void => {
+      log.info('IPC minimize-window called')
+      try {
+        const senderWindow = BrowserWindow.fromWebContents(event.sender)
+        if (senderWindow) {
+          // Find the window metadata by matching the BrowserWindow instance
+          const allWindows = getAllWindows()
+          for (const metadata of allWindows) {
+            if (metadata.window === senderWindow) {
+              minimizeWindow(metadata.id)
+              return
+            }
+          }
+          log.warn('Window metadata not found, minimizing window directly')
+          senderWindow.minimize()
+        }
+      } catch (error: Error | unknown) {
+        const errMsg = `Error minimizing window: ${error instanceof Error ? error.message : String(error)}`
+        log.error(errMsg)
+      }
+    })
+
+    /**
+     * Maximize window - called from FrameController.tsx
+     * @returns {void}
+     */
+    ipcMain.on('maximize-window', (event): void => {
+      log.info('IPC maximize-window called')
+      try {
+        const senderWindow = BrowserWindow.fromWebContents(event.sender)
+        if (senderWindow) {
+          // Find the window metadata by matching the BrowserWindow instance
+          const allWindows = getAllWindows()
+          for (const metadata of allWindows) {
+            if (metadata.window === senderWindow) {
+              maximizeWindow(metadata.id)
+              return
+            }
+          }
+          log.warn('Window metadata not found, maximizing window directly')
+          if (senderWindow.isMaximized()) {
+            senderWindow.unmaximize()
+          } else {
+            senderWindow.maximize()
+          }
+        }
+      } catch (error: Error | unknown) {
+        const errMsg = `Error maximizing window: ${error instanceof Error ? error.message : String(error)}`
+        log.error(errMsg)
+      }
+    })
+
+    // IPC handlers are registered
     setIpcHandlersRegistered(true)
 
     log.info('IPC handlers registered successfully.')

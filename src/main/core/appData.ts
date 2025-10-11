@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 12:51:33 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 21:18:54 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 09:47:42 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -27,7 +27,6 @@ import path from 'path'
 /**
  * @file src/main/core/appData.ts
  * @description Application data management and initialization.
- * @alias main/appData
  */
 
 // Constants
@@ -36,6 +35,20 @@ const SETTINGS_FILE_NAME = 'uxon-dynamics-options.json'
 const MODS_FILE_NAME = 'uxon-dynamics-mods.json'
 const MODS_DIR_NAME = 'mods'
 const MODELS_DIR_NAME = 'models'
+
+export const DEFAULT_SETTINGS: AppSettings = {
+  udxSettings: {
+    lang: 'en',
+    firstTimeJoinOrg: true,
+    firstTimeCreateOrg: true
+  },
+  appOptions: {
+    notifications: true,
+    soundFx: true,
+    streamerMode: false,
+    darkMode: true
+  }
+}
 
 /**
  * Get the appropriate app data directory based on platform
@@ -52,20 +65,8 @@ function determineAppDataPath(): string {
  * Create default application settings
  * @returns {AppSettings} Default settings object
  */
-function createDefaultSettings(): AppSettings {
-  return {
-    udx: {
-      lang: 'en',
-      firstTimeJoinOrg: true,
-      firstTimeCreateOrg: true
-    },
-    appOption: {
-      notification: true,
-      soundFx: true,
-      streamerMode: true,
-      darkMode: true
-    }
-  }
+export async function createDefaultSettings(): Promise<AppSettings> {
+  return DEFAULT_SETTINGS
 }
 
 /**

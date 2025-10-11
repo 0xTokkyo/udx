@@ -6,14 +6,13 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 12:39:17 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:35:44 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:50:46 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
 /**
  * @file src/main/core/globalState.ts
  * @description Global state management for the application.
- * @alias main/globalState
  */
 
 // Global state variables

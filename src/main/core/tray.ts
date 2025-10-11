@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 19:06:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 23:54:26 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:50:14 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -17,14 +17,16 @@ import {
   setTray,
   showAllWindows,
   setTrayContextMenu,
-  getTrayContextMenu
+  getTrayContextMenu,
+  createWindow,
+  getIsQuitting,
+  userIsLoggedIn
 } from '@main/core'
 import path from 'path'
 
 /**
  * @file src/main/core/tray.ts
  * @description System tray management.
- * @alias main/tray
  */
 
 // CONSTANTS
@@ -45,6 +47,8 @@ export async function createTray(): Promise<Tray> {
 
     let tray: Tray | null = getTray()
 
+    const userLoggedIn = userIsLoggedIn()
+
     if (!tray) {
       log.info('Creating new tray instance.')
       tray = new Tray(TRAY_ICON_PATH)
@@ -55,7 +59,18 @@ export async function createTray(): Promise<Tray> {
           enabled: false,
           icon: nativeImage.createFromPath(TRAY_ICON_PATH).resize({ width: 16, height: 16 })
         },
-        { type: 'separator' }
+        { type: 'separator' },
+        {
+          label: 'New UDX Window',
+          enabled: userLoggedIn,
+          click: async () => {
+            if (getIsQuitting() || !userLoggedIn) {
+              log.warn('App is quitting or user is not logged in, not creating new window.')
+              return
+            }
+            await createWindow({ type: 'main', rendererHTMLFile: 'index' })
+          }
+        }
       ])
       tray.setToolTip('Uxon Dynamics')
       tray.setContextMenu(contextMenu)

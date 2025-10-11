@@ -6,19 +6,18 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:55:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 23:43:59 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:49:56 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import { UDXPossibleWindows, UDXWindowMetadata, UDXWindowsPayload } from '@main/types'
-import { is, log, platform } from '@main/core'
+import { is, log } from '@main/core'
 import path from 'path'
 
 /**
  * @file src/main/core/windowManager.ts
  * @description Window management utilities for the application.
- * @alias main/windowManager
  */
 
 // CONSTANTS
@@ -65,11 +64,6 @@ function setupWindowListeners(metadata: UDXWindowMetadata): void {
   window.on('focus', () => {
     metadata.isFocused = true
     log.info(`Window ${id} focused`)
-  })
-
-  window.on('blur', () => {
-    metadata.isFocused = false
-    log.info(`Window ${id} blurred`)
   })
 
   // Clean up on close
@@ -124,13 +118,10 @@ export async function createWindow(
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
-        preload: path.join(__dirname, '../preload/index.js'),
+        preload: path.join(__dirname, '../preload/index.mjs'),
         ...finalOptions.webPreferences
       }
     })
-
-    // Special blur effect for Windows when transparency is enabled, vibrancy on macOS
-    platform.isMacOS ? window.setVibrancy('hud') : window.setBackgroundMaterial('acrylic')
 
     // Generate unique ID for this window
     const windowId = generateWindowId()

@@ -35,6 +35,7 @@ export default defineConfig({
   renderer: {
     resolve: {
       alias: {
+        '@main': resolve('src/main'),
         '@preload': resolve('src/preload'),
         '@renderer': resolve('src/renderer/src'),
         '@': resolve('src/renderer/src')

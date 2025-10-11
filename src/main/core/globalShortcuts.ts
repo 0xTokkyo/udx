@@ -6,14 +6,13 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 21:16:22 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 21:26:29 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:50:43 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
 /**
  * @file src/main/core/globalShortcuts.ts
  * @description Module for managing global keyboard shortcuts.
- * @alias main/globalShortcuts
  */
 
 import { app, BrowserWindow, globalShortcut } from 'electron'

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* ***************************************************************************** */
 /*                                                          __  __ ____  _  __   */
 /*                                                         / / / // __ \| |/ /   */
@@ -6,16 +7,18 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-05 00:59:10 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 01:08:34 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 09:42:58 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AppSettings } from '@main/types'
 
 /**
+ * @file src/preload/types.ts
  * @interface CustomElectronAPI
  * @description Type-safe API for IPC communication between renderer and main process
  */
+
 export interface CustomElectronAPI {
   // Event listeners
   on: (channel: string, callback: (...args: any[]) => void) => void
@@ -54,6 +57,8 @@ export interface CustomElectronAPI {
   file: {
     read: (filePath: string) => Promise<string | null>
     readSettings: () => Promise<any | null>
+    writeSettings: (settings: any) => Promise<boolean>
+    createDefaultSettings: () => Promise<AppSettings | null>
   }
 
   // Logging

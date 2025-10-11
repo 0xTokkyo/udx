@@ -1,5 +1,13 @@
 /// <reference types="vite/client" />
 
+import type { CustomElectronAPI } from '@preload/types'
+
+declare global {
+  interface Window {
+    udx: CustomElectronAPI
+  }
+}
+
 interface ImportMetaEnv {
   readonly VITE_DISCORD_CLIENT_ID: string
   readonly VITE_COORDINATION_URL: string

@@ -1,1 +1,312 @@
 /* global.css */
+@import 'tailwindcss';
+/* @import "./core/reset.css"; */ /** For now, using Tailwind's Preflight instead */
+@import './core/typography.css';
+@import './core/animations.css';
+@import './core/variables.css';
+
+/* Development */
+.dev * {
+  border: dashed 1px rgb(235, 0, 255);
+  background-color: rgba(0, 65, 25, 0.5);
+}
+
+/* Basic */
+body {
+  font-size: var(--base-size);
+  color: var(--color-base-content);
+  letter-spacing: var(--tracking-ls-s);
+  background-color: var(--color-base-200);
+  user-select: none;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-regular);
+}
+
+/* Data-Attributes */
+[data-cursor='pointer'] {
+  cursor: pointer;
+}
+
+/* Formatting */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: normal;
+  color: var(--color-primary);
+}
+
+h1 {
+  font-size: var(--font-xxxxl);
+  font-family: var(--font-black);
+  letter-spacing: var(--tracking-ls-xxxxl);
+  margin-bottom: var(--base-spacing-4);
+}
+
+h2 {
+  font-size: var(--font-xxxl);
+  font-family: var(--font-bold);
+  letter-spacing: var(--tracking-ls-xxxl);
+  margin-bottom: var(--base-spacing-3);
+}
+
+h3 {
+  font-size: var(--font-xxl);
+  font-family: var(--font-demibold);
+  letter-spacing: var(--tracking-ls-xxl);
+  margin-bottom: var(--base-spacing-3);
+}
+
+h4 {
+  font-size: var(--font-xl);
+  font-family: var(--font-medium);
+  letter-spacing: var(--tracking-ls-xl);
+  margin-bottom: var(--base-spacing);
+}
+
+h5 {
+  font-size: var(--font-l);
+  font-family: var(--font-medium);
+  letter-spacing: var(--tracking-ls-l);
+  margin-bottom: var(--base-spacing);
+}
+
+h6 {
+  font-size: var(--font-m);
+  font-family: var(--font-medium);
+  letter-spacing: var(--tracking-ls-m);
+  margin-bottom: var(--base-spacing-2);
+}
+
+p {
+  font-size: var(--font-s);
+  font-family: var(--font-regular);
+  letter-spacing: var(--tracking-ls-s);
+  margin: 0 0 var(--base-spacing) 0;
+  color: var(--color-base-content);
+}
+
+b,
+strong {
+  font-family: var(--font-bold);
+  font-weight: normal;
+}
+
+i,
+em {
+  font-family: var(--font-regular-italic);
+  font-style: normal;
+}
+
+small {
+  font-size: var(--font-xs);
+  font-family: var(--font-light);
+  letter-spacing: var(--tracking-ls-xs);
+  color: var(--color-secondary);
+}
+
+code {
+  font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+  font-size: var(--font-xs);
+  background-color: var(--color-base-200);
+  padding: var(--base-spacing-2) var(--base-spacing);
+  border-radius: var(--base-radius-2);
+  color: var(--color-accent);
+}
+
+pre {
+  font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+  font-size: var(--font-xs);
+  background-color: var(--color-base-200);
+  padding: var(--base-spacing-3);
+  border-radius: var(--base-radius);
+  overflow-x: auto;
+  margin: var(--base-spacing) 0;
+  color: var(--color-primary);
+}
+
+blockquote {
+  font-size: var(--font-m);
+  font-family: var(--font-light-italic);
+  font-style: normal;
+  border-left: 3px solid var(--color-accent);
+  padding-left: var(--base-spacing-3);
+  margin: var(--base-spacing-3) 0;
+  color: var(--color-secondary);
+}
+
+mark {
+  background-color: var(--color-warning-alpha-30);
+  color: var(--color-warning-content);
+  padding: 0 var(--base-spacing-2);
+  border-radius: var(--base-radius-2);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s var(--transition-ease);
+}
+
+a:hover {
+  color: var(--color-accent-alpha-80);
+}
+
+a:focus {
+  outline: 2px solid var(--color-accent-alpha-50);
+  outline-offset: 2px;
+  border-radius: var(--base-radius-2);
+}
+
+ul,
+ol {
+  margin: var(--base-spacing) 0;
+  padding-left: var(--base-spacing-4);
+}
+
+li {
+  font-size: var(--font-s);
+  font-family: var(--font-regular);
+  line-height: 1.5;
+  margin-bottom: var(--base-spacing-2);
+  color: var(--color-base-content);
+}
+
+.text-thin {
+  font-family: var(--font-thin);
+}
+
+.text-extra-light {
+  font-family: var(--font-extra-light);
+}
+
+.text-light {
+  font-family: var(--font-light);
+}
+
+.text-regular {
+  font-family: var(--font-regular);
+}
+
+.text-medium {
+  font-family: var(--font-medium);
+}
+
+.text-demibold {
+  font-family: var(--font-demibold);
+}
+
+.text-bold {
+  font-family: var(--font-bold);
+}
+
+.text-black {
+  font-family: var(--font-black);
+}
+
+.text-italic {
+  font-family: var(--font-regular-italic);
+  font-style: normal;
+}
+
+.text-thin-italic {
+  font-family: var(--font-thin-italic);
+  font-style: normal;
+}
+
+.text-extra-light-italic {
+  font-family: var(--font-extra-light-italic);
+  font-style: normal;
+}
+
+.text-light-italic {
+  font-family: var(--font-light-italic);
+  font-style: normal;
+}
+
+.text-medium-italic {
+  font-family: var(--font-medium-italic);
+  font-style: normal;
+}
+
+.text-demibold-italic {
+  font-family: var(--font-demibold-italic);
+  font-style: normal;
+}
+
+.text-bold-italic {
+  font-family: var(--font-bold-italic);
+  font-style: normal;
+}
+
+.text-black-italic {
+  font-family: var(--font-black-italic);
+  font-style: normal;
+}
+
+.text-xxs {
+  font-size: var(--font-xxs);
+  letter-spacing: var(--tracking-ls-xxs);
+}
+
+.text-xs {
+  font-size: var(--font-xs);
+  letter-spacing: var(--tracking-ls-xs);
+}
+
+.text-s {
+  transform: translateY(2px);
+  font-size: var(--font-s);
+  letter-spacing: var(--tracking-ls-s);
+}
+
+.text-m {
+  font-size: var(--font-m);
+  letter-spacing: var(--tracking-ls-m);
+}
+
+.text-l {
+  font-size: var(--font-l);
+  letter-spacing: var(--tracking-ls-l);
+}
+
+.text-xl {
+  font-size: var(--font-xl);
+  letter-spacing: var(--tracking-ls-xl);
+}
+
+.text-xxl {
+  font-size: var(--font-xxl);
+  letter-spacing: var(--tracking-ls-xxl);
+}
+
+.text-xxxl {
+  font-size: var(--font-xxxl);
+  letter-spacing: var(--tracking-ls-xxxl);
+}
+
+.text-xxxxl {
+  font-size: var(--font-xxxxl);
+  letter-spacing: var(--tracking-ls-xxxxl);
+}
+
+.color-success {
+  color: var(--color-success);
+}
+
+.color-warning {
+  color: var(--color-warning);
+}
+
+.color-error {
+  color: var(--color-error);
+}
+
+.color-info {
+  color: var(--color-info);
+}

@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:38:38 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:33:35 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:51:34 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -18,7 +18,6 @@ import path from 'path'
 /**
  * @file src/main/services/protocoles.ts
  * @description Custom protocol handler for the application uxondynamics:// on all platforms.
- * @alias main/services/protocoles
  */
 
 const PROTOCOL_SCHEME = 'uxondynamics'

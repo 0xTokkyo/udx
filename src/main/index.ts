@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 02:46:27 by 0xTokkyo                                    */
-/*   Updated: 2025-10-07 19:47:42 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:50:59 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -26,7 +26,6 @@ import { initializeProtocols, setDiscordActivity, performHealthChecks } from '@m
 /**
  * @file src/main/index.ts
  * @description Main entry point for the application.
- * @alias main/index
  */
 
 async function initializeMainProcess(): Promise<void> {
@@ -96,7 +95,11 @@ async function initializeMainProcess(): Promise<void> {
  * @returns {void}
  */
 app.on('window-all-closed', function (): void {
-  if (getAllWindows().length === 0 && process.platform !== 'darwin') app.quit()
+  // Always quit the app when all windows are closed, including on macOS
+  if (getAllWindows().length === 0) {
+    log.info('All windows closed, quitting application')
+    app.quit()
+  }
 })
 
 /**

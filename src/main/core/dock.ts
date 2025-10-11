@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 23:45:39 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 00:07:48 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:50:41 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -16,7 +16,6 @@ import { log } from '@main/core'
 /**
  * @file src/main/core/dock.ts
  * @description Dock management for macOS.
- * @alias core/dock
  */
 
 export async function createDockMenuTemplate(): Promise<Electron.Menu> {

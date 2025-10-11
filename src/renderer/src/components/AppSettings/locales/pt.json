@@ -1,0 +1,9 @@
+{
+  "AppSettings": {
+    "title": "opções",
+    "notifications": "notificações",
+    "sound_fx": "efeitos sonoros",
+    "streamer_mode": "modo streamer",
+    "dark_mode": "modo escuro"
+  }
+}

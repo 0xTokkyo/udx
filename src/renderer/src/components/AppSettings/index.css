@@ -1,0 +1,289 @@
+/* AppSettings.css */
+#app-settings {
+  z-index: 9999;
+  display: flex;
+  flex-direction: row;
+  top: var(--frame-controller-height);
+  width: 100%;
+  height: calc(100% - var(--frame-controller-height));
+  padding: 4rem 4.375rem;
+  gap: var(--base-spacing);
+  position: fixed;
+  text-transform: uppercase;
+  background-color: var(--color-base-300);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.15s var(--t-fast);
+}
+
+#app-settings:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/img/app-option-background-dark-mode.svg');
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+}
+
+#app-settings.display {
+  opacity: 1;
+  visibility: visible;
+}
+
+#app-settings .settings-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 35rem;
+  gap: var(--base-spacing);
+}
+
+#app-settings .settings-section .langs .title,
+#app-settings .settings-section .options .title {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: end;
+  width: 10rem;
+  padding-right: 2rem;
+  letter-spacing: var(--tracking-ls-xs);
+  font-family: var(--font-bold);
+  color: var(--color-primary);
+  opacity: 0;
+  transition: all 0.45s var(--t-ease);
+}
+
+#app-settings.display .settings-section .langs .title,
+#app-settings.display .settings-section .options .title {
+  opacity: 1;
+  transition-delay: 0.15s;
+}
+
+#app-settings .settings-section .langs,
+#app-settings .settings-section .options {
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+}
+
+#app-settings .settings-section .langs .list,
+#app-settings .settings-section .options .list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-left: 2rem;
+  gap: 1rem;
+}
+
+#app-settings .settings-section .langs .list:before,
+#app-settings .settings-section .options .list:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 0%;
+  border-left: 1px solid var(--color-primary);
+  opacity: 0;
+  transition: var(--transition-slow);
+}
+
+#app-settings.display .settings-section .langs .list:before,
+#app-settings.display .settings-section .options .list:before {
+  opacity: 1;
+  height: 100%;
+  border-left: 1px solid var(--color-primary-alpha-10);
+  transition: all 1.15s var(--t-fast);
+  transition-delay: 0.4s;
+}
+
+#app-settings .settings-section .langs .list {
+  flex-direction: row;
+  gap: var(--base-spacing);
+}
+
+#app-settings .settings-section .options .list .option-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-medium);
+  color: var(--color-secondary);
+  opacity: 0;
+  transition: all 0.45s var(--t-ease);
+  transition-delay: 0s;
+}
+
+#app-settings.display .settings-section .options .list .option-row {
+  opacity: 1;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(1) {
+  transition-delay: 0.2s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(2) {
+  transition-delay: 0.23s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(3) {
+  transition-delay: 0.25s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(4) {
+  transition-delay: 0.26s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(5) {
+  transition-delay: 0.27s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(6) {
+  transition-delay: 0.275s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(7) {
+  transition-delay: 0.28s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(8) {
+  transition-delay: 0.283s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(9) {
+  transition-delay: 0.285s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(10) {
+  transition-delay: 0.287s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(11) {
+  transition-delay: 0.288s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(12) {
+  transition-delay: 0.289s;
+}
+
+#app-settings.display .settings-section .options .list .option-row:nth-child(13) {
+  transition-delay: 0.2895s;
+}
+
+#app-settings .settings-section .options .option-row[data-disabled='true'] * {
+  color: var(--color-neutral) !important;
+  pointer-events: none;
+}
+
+#app-settings .settings-section .options .option-row .option-action {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: var(--base-spacing-3);
+  width: 5rem;
+}
+
+#app-settings .settings-section .langs .list .lang-item,
+#app-settings .settings-section .options .option-row .option-action .action {
+  color: var(--color-primary-alpha-20);
+  transition: var(--transition-fast);
+  font-family: var(--font-bold);
+  cursor: pointer;
+}
+
+#app-settings .settings-section .langs .list .lang-item:hover,
+#app-settings .settings-section .options .option-row .option-action .action:hover {
+  color: var(--color-primary-alpha-30);
+}
+
+#app-settings
+  .settings-section
+  .options
+  .option-row
+  .option-action
+  .action[data-action-value='true'][data-selected='true'] {
+  /* color: var(--color-success); */
+  /* Preferred color for active state, for now... */
+  color: var(--color-accent);
+}
+
+#app-settings
+  .settings-section
+  .options
+  .option-row
+  .option-action
+  .action[data-action-value='false'][data-selected='true'] {
+  color: var(--color-error);
+}
+
+#app-settings .settings-section .langs .list .lang-item[data-selected='true'] {
+  /* color: var(--color-primary); */
+  /* Preferred color for active state, for now... */
+  color: var(--color-accent);
+}
+
+#app-settings .settings-section .langs .list .lang-item {
+  opacity: 0;
+  transition: opacity 0.45s var(--t-ease);
+  transition-delay: 0s;
+}
+
+#app-settings.display .settings-section .langs .list .lang-item {
+  opacity: 1;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(1) {
+  transition-delay: 0.3s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(2) {
+  transition-delay: 0.33s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(3) {
+  transition-delay: 0.35s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(4) {
+  transition-delay: 0.36s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(5) {
+  transition-delay: 0.37s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(6) {
+  transition-delay: 0.375s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(7) {
+  transition-delay: 0.38s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(8) {
+  transition-delay: 0.383s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(9) {
+  transition-delay: 0.385s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(10) {
+  transition-delay: 0.387s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(11) {
+  transition-delay: 0.388s;
+}
+
+#app-settings .settings-section .langs .list .lang-item:nth-child(12) {
+  transition-delay: 0.389s;
+}

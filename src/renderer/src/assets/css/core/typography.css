@@ -1,1 +1,65 @@
 /* typography.css */
+@font-face {
+  font-family: 'ttm-thin';
+  src: url('../fonts/ttm-thin.ttf');
+}
+@font-face {
+  font-family: 'ttm-thin-italic';
+  src: url('../fonts/ttm-thin-italic.ttf');
+}
+@font-face {
+  font-family: 'ttm-light';
+  src: url('../fonts/ttm-light.ttf');
+}
+@font-face {
+  font-family: 'ttm-light-italic';
+  src: url('../fonts/ttm-light-italic.ttf');
+}
+@font-face {
+  font-family: 'ttm-regular';
+  src: url('../fonts/ttm-regular.ttf');
+}
+@font-face {
+  font-family: 'ttm-italic';
+  src: url('../fonts/ttm-italic.ttf');
+}
+@font-face {
+  font-family: 'ttm-medium';
+  src: url('../fonts/ttm-medium.ttf');
+}
+@font-face {
+  font-family: 'ttm-medium-italic';
+  src: url('../fonts/ttm-medium-italic.ttf');
+}
+@font-face {
+  font-family: 'ttm-bold';
+  src: url('../fonts/ttm-bold.ttf');
+}
+@font-face {
+  font-family: 'ttm-bold-italic';
+  src: url('../fonts/ttm-bold-italic.ttf');
+}
+@font-face {
+  font-family: 'ttm-black';
+  src: url('../fonts/ttm-black.ttf');
+}
+@font-face {
+  font-family: 'ttm-black-italic';
+  src: url('../fonts/ttm-black-italic.ttf');
+}
+@font-face {
+  font-family: 'ttm-demibold';
+  src: url('../fonts/ttm-demibold.ttf');
+}
+@font-face {
+  font-family: 'ttm-demibold-italic';
+  src: url('../fonts/ttm-demibold-italic.ttf');
+}
+@font-face {
+  font-family: 'ttm-extra-light';
+  src: url('../fonts/ttm-extra-light.ttf');
+}
+@font-face {
+  font-family: 'ttm-extra-light-italic';
+  src: url('../fonts/ttm-extra-light-italic.ttf');
+}

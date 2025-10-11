@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 11:19:20 by 0xTokkyo                                    */
-/*   Updated: 2025-10-07 19:53:42 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:50:05 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -17,7 +17,6 @@ import path from 'path'
 /**
  * @file src/main/core/loadEnvx.ts
  * @description Utility to load encrypted environment variables using dotenvx.
- * @alias main/loadEnvx
  */
 export async function loadEncryptedEnvx(): Promise<void> {
   try {

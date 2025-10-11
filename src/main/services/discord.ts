@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-05 00:09:53 by 0xTokkyo                                    */
-/*   Updated: 2025-10-06 00:20:33 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:51:29 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -16,7 +16,6 @@ import { log } from '@main/core'
 /**
  * @file src/main/services/discord.ts
  * @description Handles Discord Rich Presence (RPC) integration.
- * @alias main/services/discord
  */
 
 DiscordRPC.register(import.meta.env.VITE_DISCORD_CLIENT_ID)

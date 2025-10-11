@@ -1,0 +1,140 @@
+/* frame-controller.css */
+:root {
+  --frame-controller-height: 22px;
+}
+
+#frame-controller {
+  z-index: 9999;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  width: 100%;
+  height: var(--frame-controller-height);
+  -webkit-app-region: drag;
+  gap: var(--base-spacing);
+  color: var(--color-neutral);
+  background-color: var(--UDXRV--color-black);
+}
+
+#frame-controller .app-name {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--base-spacing);
+  font-family: var(--font-demibold);
+}
+
+#frame-controller .special-message {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  visibility: hidden;
+}
+
+#frame-controller .special-message.visible {
+  visibility: visible;
+}
+
+#frame-controller .special-message .text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 2px;
+}
+
+#frame-controller .special-message .action {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: 30%;
+}
+
+#frame-controller .app-settings-trigger {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1px;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  color: var(--color-neutral);
+  -webkit-app-region: no-drag;
+  transition: var(--transition-fast);
+}
+
+#frame-controller .app-settings-trigger:hover {
+  color: var(--color-secondary);
+}
+
+#frame-controller .app-window-controls {
+  flex: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: auto;
+  -webkit-app-region: no-drag;
+  transition: var(--transition-fast);
+}
+
+#frame-controller .app-window-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1px;
+  height: 100%;
+  width: 26px;
+}
+
+#frame-controller .app-window-button.close:hover {
+  color: var(--UDXRV--color-black);
+  background-color: var(--color-error);
+}
+
+#frame-controller .app-window-button.minimize:hover,
+#frame-controller .app-window-button.maximize:hover {
+  background-color: var(--color-secondary);
+  color: var(--UDXRV--color-black);
+}
+
+#frame-controller .app-loading-indicator {
+  z-index: 1001;
+  position: relative;
+  display: flex;
+  flex: none;
+  width: 90px;
+  height: 3px;
+  margin-top: 1px;
+  margin-right: 1rem;
+  background-color: var(--color-base-300);
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-linear);
+}
+
+#frame-controller .app-loading-indicator::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  background-color: var(--color-accent);
+  transition: var(--transition-linear);
+  animation: expend-left-to-right 1s infinite;
+}

@@ -7,7 +7,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 11:24:02 by 0xTokkyo                                    */
-/*   Updated: 2025-10-04 20:35:50 by 0xTokkyo                                    */
+/*   Updated: 2025-10-09 18:50:08 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -17,7 +17,6 @@ import { is } from '@electron-toolkit/utils'
 /**
  * @file src/main/core/logger.ts
  * @description Logger utility for the application.
- * @alias main/logger
  */
 
 export const colors = {

@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:35:59 by 0xTokkyo                                    */
-/*   Updated: 2025-10-05 00:58:33 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 09:48:01 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -17,15 +17,28 @@ export interface UDXSettings {
 }
 
 export interface AppOptions {
-  notification: boolean
+  notifications: boolean
   soundFx: boolean
   streamerMode: boolean
   darkMode: boolean
 }
 
 export interface AppSettings {
-  udx: UDXSettings
-  appOption: AppOptions
+  udxSettings: UDXSettings
+  appOptions: AppOptions
+}
+
+export interface OptionItemProps {
+  label: string
+  value: boolean
+  onChange: (value: boolean) => void
+}
+
+export interface LangOptionItemProps {
+  label: string
+  value: string
+  onChange: () => void
+  isSelected?: boolean
 }
 
 export interface UserMods {
@@ -66,5 +79,25 @@ export interface ModelsManifest {
   version: string
   models: {
     [key: string]: ModelInfo
+  }
+}
+
+export type SupportedLang = 'en' | 'fr' | 'de' | 'es' | 'it' | 'pt' | 'ru' | 'zh' | 'ja' | 'ko'
+export type SupportedLangFull =
+  | 'en-US'
+  | 'fr-FR'
+  | 'de-DE'
+  | 'es-ES'
+  | 'it-IT'
+  | 'pt-BR'
+  | 'ru-RU'
+  | 'zh-CN'
+  | 'ja-JP'
+  | 'ko-KR'
+
+export interface ModTranslations {
+  [modId: string]: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [lang in SupportedLang]?: Record<string, any>
   }
 }

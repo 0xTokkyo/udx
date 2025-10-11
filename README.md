@@ -92,6 +92,7 @@ udx/
 │           └── utils/                # Utility functions
 └── Configuration files               # Various config files
 ```
+
 ```
 ./uxon-dynamics/                      # Hidden user data directory
 ├── models/                           # 3D models and assets
@@ -117,17 +118,20 @@ udx/
 UDX follows a modern Electron architecture with clear separation of concerns:
 
 ### **Main Process (Node.js)**
+
 - **Core Modules**: Application lifecycle, window management, system integration
 - **Services**: API communication, Discord integration, protocol handlers
 - **IPC Handlers**: Secure communication bridge with renderer process
 - **Security**: Global shortcuts, tray management, auto-updater
 
 ### **Preload Scripts**
+
 - **Secure IPC Bridge**: Exposes safe APIs to renderer process
 - **Context Isolation**: Prevents renderer from accessing Node.js APIs directly
 - **Type Safety**: TypeScript definitions for all exposed APIs
 
 ### **Renderer Process (React)**
+
 - **React 19**: Modern React with concurrent features
 - **TypeScript**: Full type safety across the application
 - **Three.js Integration**: 3D graphics and visualizations
@@ -136,6 +140,7 @@ UDX follows a modern Electron architecture with clear separation of concerns:
 - **Styling**: Tailwind CSS with custom design system
 
 ### **Communication Flow**
+
 ```
 UDX Desktop App ←→ UDX-SERVER ←→ Fleetyards APIs
      ↓                    ↓
@@ -145,6 +150,7 @@ UDX Desktop App ←→ UDX-SERVER ←→ Fleetyards APIs
 ```
 
 ### **Security Model**
+
 - **Process Isolation**: Strict separation between main and renderer processes
 - **Context Isolation**: Renderer cannot access Node.js APIs directly
 - **Secure IPC**: All communication through predefined, typed channels
@@ -199,12 +205,14 @@ RENDERER_VITE_POSTHOG_PUBLIC_KEY='your-posthog-key'
 The `sync-envx` script manages environment file synchronization and encryption:
 
 **What it does:**
+
 - Synchronizes development and production environment files
 - Encrypts sensitive configuration using dotenvx
 - Ensures environment consistency across builds
 - Validates required environment variables
 
 **When it runs:**
+
 - Automatically before `dev`, `build`, and `start` commands
 - During the `postinstall` script
 - Can be run manually with `npm run sync-envx`
@@ -212,6 +220,7 @@ The `sync-envx` script manages environment file synchronization and encryption:
 ## Available Scripts
 
 ### Development
+
 ```bash
 npm run dev              # Start development with hot reloading
 npm run start            # Start app in preview mode
@@ -219,6 +228,7 @@ npm run test             # Run test suite
 ```
 
 ### Building & Distribution
+
 ```bash
 npm run build            # Build for current platform
 npm run build:unpack    # Build unpacked (for testing)
@@ -228,6 +238,7 @@ npm run build:linux     # Build for Linux
 ```
 
 ### Development Tools
+
 ```bash
 npm run format          # Format code with Prettier
 npm run lint            # Lint code with ESLint
@@ -237,6 +248,7 @@ npm run typecheck:web   # Type check renderer process only
 ```
 
 ### Utilities
+
 ```bash
 npm run cli             # Run interactive CLI
 npm run sync-envx       # Sync environment variables
@@ -252,6 +264,7 @@ npm run cli
 ```
 
 The CLI provides:
+
 - **Development**: Start dev server, preview mode
 - **Building**: Multi-platform builds with options
 - **Tools**: Code formatting, linting, type checking
@@ -261,6 +274,7 @@ The CLI provides:
 ## Communication with UDX-SERVER
 
 ### REST API Integration
+
 The app communicates with UDX-SERVER through a configured Axios client:
 
 - **Authentication**: Bearer token and UDX secret headers
@@ -269,6 +283,7 @@ The app communicates with UDX-SERVER through a configured Axios client:
 - **Type Safety**: TypeScript interfaces for all API responses
 
 ### WebSocket Connection
+
 Real-time features are powered by Socket.IO:
 
 - **User Rooms**: Personal real-time updates
@@ -277,6 +292,7 @@ Real-time features are powered by Socket.IO:
 - **Reconnection**: Automatic reconnection with exponential backoff
 
 ### Security Features
+
 - **Header Authentication**: `Authorization: Bearer <token>` and `X-UDX-Secret`
 - **Health Checks**: Automatic server availability validation
 - **Error Handling**: Graceful degradation when server is offline
@@ -285,10 +301,13 @@ Real-time features are powered by Socket.IO:
 ## Building & Distribution
 
 ### Development Build
+
 ```bash
 npm run dev
 ```
+
 Starts the application in development mode with:
+
 - Hot module reloading
 - DevTools enabled
 - Source maps
@@ -297,11 +316,13 @@ Starts the application in development mode with:
 ### Production Builds
 
 **Universal Build:**
+
 ```bash
 npm run build
 ```
 
 **Platform-Specific Builds:**
+
 ```bash
 npm run build:win    # Windows (exe, nsis)
 npm run build:mac    # macOS (dmg, zip)
@@ -311,6 +332,7 @@ npm run build:linux  # Linux (AppImage, deb)
 ### Auto-Updater
 
 The app includes electron-updater for automatic updates:
+
 - **GitHub Releases**: Automatic update detection
 - **Silent Updates**: Background downloading
 - **User Consent**: Optional update prompts
@@ -319,12 +341,14 @@ The app includes electron-updater for automatic updates:
 ## Technology Stack
 
 ### Core Framework
+
 - **Electron**: Cross-platform desktop framework
 - **React 19**: Modern UI framework
 - **TypeScript**: Type safety and developer experience
 - **Vite**: Fast build tool and dev server
 
 ### UI & Styling
+
 - **Tailwind CSS**: Utility-first CSS framework
 - **Three.js**: 3D graphics and visualizations
 - **React Three Fiber**: React renderer for Three.js
@@ -332,18 +356,21 @@ The app includes electron-updater for automatic updates:
 - **GSAP**: Animation library
 
 ### State Management & Data
+
 - **Zustand**: Lightweight state management
 - **TanStack Query**: Server state management
 - **React Router**: Client-side routing
 - **Axios**: HTTP client
 
 ### Integration & Services
+
 - **Discord RPC**: Rich Presence integration
 - **Socket.IO**: Real-time communication
 - **PostHog**: Analytics and feature flags
 - **Electron Store**: Persistent local storage
 
 ### Development Tools
+
 - **ESLint**: Code linting
 - **Prettier**: Code formatting
 - **Electron Builder**: Application packaging
@@ -352,16 +379,19 @@ The app includes electron-updater for automatic updates:
 ## File Storage & Assets
 
 ### Public Assets
+
 - Located in `src/renderer/public/`
 - Accessible via HTTP in the renderer process
 - Includes images, data files, and static resources
 
 ### Build Assets
+
 - App icons for all platforms
 - Electron builder configuration
 - Platform-specific entitlements and certificates
 
 ### Dynamic Assets
+
 - User-generated content
 - Downloaded resources
 - Cache and temporary files
@@ -369,13 +399,16 @@ The app includes electron-updater for automatic updates:
 ## Development
 
 ### Getting Started
+
 1. Ensure you have Node.js 18+ installed
 2. Clone the repository and install dependencies
 3. Configure environment variables in `env/.env.local`
 4. Start the development server with `npm run dev`
 
 ### Creating Components
+
 Use the built-in component generator:
+
 ```bash
 npm run create:component
 # or via CLI
@@ -383,13 +416,16 @@ npm run cli
 ```
 
 This creates a new React TSX component with:
+
 - TypeScript interface
 - CSS module
 - Proper imports and exports
 - Component boilerplate
 
 ### Code Quality
+
 The project enforces code quality through:
+
 - **TypeScript**: Strict type checking
 - **ESLint**: Code linting with React and Electron rules
 - **Prettier**: Consistent code formatting
@@ -398,20 +434,24 @@ The project enforces code quality through:
 ## Deployment
 
 ### Development
+
 ```bash
 npm install
 npm run dev
 ```
 
 ### Production
+
 ```bash
 npm run build:win    # For Windows
-npm run build:mac    # For macOS  
+npm run build:mac    # For macOS
 npm run build:linux  # For Linux
 ```
 
 ### Distribution
+
 Built applications are output to the `dist/` directory:
+
 - **Installers**: Ready-to-distribute installation files
 - **Unpacked**: Development and testing builds
 - **Updates**: Auto-updater compatible packages
@@ -427,6 +467,7 @@ Built applications are output to the `dist/` directory:
 7. Open a Pull Request
 
 ### Development Guidelines
+
 - Follow TypeScript best practices
 - Use the udx-header.vsix extension
 - Write meaningful component names and props
@@ -435,6 +476,10 @@ Built applications are output to the `dist/` directory:
 - Test your changes across platforms when possible
 
 https://github.com/user-attachments/assets/61827447-471b-4f5d-ba48-c76d490436f3
+
+## LLMS
+
+Please refer to the `llms.txt` file in the root of the repository for detailed guidelines on coding conventions, component structure, and project architecture. This document is essential for maintaining consistency and quality across contributions when using AI on the UDX framework.
 
 ## License
 
@@ -447,6 +492,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 For issues and questions:
+
 - Open an issue on the [UDX repository](https://github.com/0xTokkyo/udx/issues)
 - Check the Electron DevTools console for debugging
 - Use the CLI tool for development utilities

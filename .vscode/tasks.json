@@ -7,7 +7,7 @@
       "command": "npx",
       "args": [
         "tsx",
-        "mts/create-udx-component.ts",
+        "./dev/mts/create-udx-component.mts",
         "${input:folderName}",
         "${input:componentName}"
       ],

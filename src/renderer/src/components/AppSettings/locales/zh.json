@@ -1,0 +1,9 @@
+{
+  "AppSettings": {
+    "title": "选项",
+    "notifications": "通知",
+    "sound_fx": "音效",
+    "streamer_mode": "主播模式",
+    "dark_mode": "暗黑模式"
+  }
+}
