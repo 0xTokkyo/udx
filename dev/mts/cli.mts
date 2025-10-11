@@ -7,7 +7,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-07 15:48:08 by 0xTokkyo                                    */
-/*   Updated: 2025-10-07 21:56:13 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 11:44:06 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -79,6 +79,11 @@ const actions: MenuChoice[] = [
     name: formatActionName('CREATE:COMP', 'Create new React component'),
     value: 'create:component',
     description: `\n${colors.muted}Generate a new UDX React TSX component${colors.reset}\n`
+  },
+  {
+    name: formatActionName('CREATE:APP', 'Create new React app'),
+    value: 'create:app',
+    description: `\n${colors.muted}Generate a new UDX React TSX app${colors.reset}\n`
   },
   {
     name: `${colors.muted}QUIT${colors.reset}\n`,
@@ -333,6 +338,86 @@ async function showContinuePrompt(): Promise<void> {
   }
 }
 
+async function createComponent(): Promise<void> {
+  try {
+    console.log(`\n${colors.udx}${colors.bright}CREATE NEW UDX REACT COMPONENT${colors.reset}\n`)
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'folderName',
+        message: 'Folder name:',
+        validate: (input: string) => input.trim() !== '' || 'Folder name is required',
+        theme: { prefix: `${colors.udx}?${colors.reset}` }
+      },
+      {
+        type: 'input',
+        name: 'componentName',
+        message: 'Component name:',
+        validate: (input: string) => input.trim() !== '' || 'Component name is required',
+        theme: { prefix: `${colors.udx}?${colors.reset}` }
+      }
+    ])
+
+    await runTsxScript('create-udx-component.mts', [answers.folderName, answers.componentName])
+  } catch (error) {
+    console.error('Error creating component:', error)
+  }
+}
+
+async function createApp(): Promise<void> {
+  try {
+    console.log(`\n${colors.udx}${colors.bright}CREATE NEW UDX REACT APP${colors.reset}\n`)
+
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'folderName',
+        message: 'App folder name:',
+        validate: (input: string) => input.trim() !== '' || 'App folder name is required',
+        theme: { prefix: `${colors.udx}?${colors.reset}` }
+      },
+      {
+        type: 'input',
+        name: 'appName',
+        message: 'App name:',
+        validate: (input: string) => input.trim() !== '' || 'App name is required',
+        theme: { prefix: `${colors.udx}?${colors.reset}` }
+      }
+    ])
+
+    await runTsxScript('create-udx-app.mts', [answers.folderName, answers.appName])
+  } catch (error) {
+    console.error('Error creating app:', error)
+  }
+}
+
+function runTsxScript(scriptName: string, args: string[]): Promise<void> {
+  return new Promise((resolve, reject) => {
+    console.log(`\nExecuting: npx tsx ./dev/mts/${scriptName} ${args.join(' ')}\n`)
+
+    const child = spawn('npx', ['tsx', `./dev/mts/${scriptName}`, ...args], {
+      stdio: 'inherit',
+      cwd: process.cwd()
+    })
+
+    child.on('close', (code) => {
+      if (code === 0) {
+        console.log(`\n${colors.green}✓${colors.reset} ${scriptName} completed successfully\n`)
+        resolve()
+      } else {
+        console.log(`\n${colors.red}✗${colors.reset} ${scriptName} failed with code: ${code}\n`)
+        reject(new Error(`Script failed with code ${code}`))
+      }
+    })
+
+    child.on('error', (error) => {
+      console.error(`\n${colors.red}✗${colors.reset} Error while executing: ${error.message}\n`)
+      reject(error)
+    })
+  })
+}
+
 async function handleAction(action: string): Promise<void> {
   switch (action) {
     case 'build':
@@ -340,6 +425,14 @@ async function handleAction(action: string): Promise<void> {
       break
     case 'tools':
       await showToolsMenu()
+      break
+    case 'create:component':
+      await createComponent()
+      await showContinuePrompt()
+      break
+    case 'create:app':
+      await createApp()
+      await showContinuePrompt()
       break
     case 'exit':
       clearConsole()

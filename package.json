@@ -18,6 +18,8 @@
     "cli": "tsx ./dev/mts/cli.mts",
     "sync-envx": "tsx ./dev/mts/sync-envx.mts",
     "create:component": "tsx ./dev/mts/create-udx-component.mts",
+    "create:app": "tsx ./dev/mts/create-udx-app.mts",
+    "create:mod": "tsx ./dev/mts/create-udx-mod.mts",
     "format": "prettier --write .",
     "lint": "eslint --cache .",
     "test": "tsx ./dev/test/test.mts",

@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 12:06:41 by 0xTokkyo                                    */
-/*   Updated: 2025-10-07 21:31:04 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 11:32:00 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -117,5 +117,9 @@ export function sanitizeForCssClassName(input: string): string {
 }
 
 export function isValidComponentName(name: string): boolean {
+  return /^[A-Z][a-zA-Z0-9]*$/.test(name)
+}
+
+export function isValidappName(name: string): boolean {
   return /^[A-Z][a-zA-Z0-9]*$/.test(name)
 }
