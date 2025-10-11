@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-09 21:16:17 by 0xTokkyo                                    */
-/*   Updated: 2025-10-10 21:23:00 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:19:35 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -83,6 +83,25 @@ const electronBackend: BackendModule = {
 }
 
 /**
+ * Get the saved language from application settings
+ * Falls back to 'en' if no settings are found or if there's an error
+ */
+const getSavedLanguage = async (): Promise<string> => {
+  try {
+    const settings = await window.udx.file.readSettings()
+    if (settings && settings.udxSettings && settings.udxSettings.lang) {
+      await window.udx.log.info(`Using saved language: ${settings.udxSettings.lang}`)
+      return settings.udxSettings.lang
+    }
+    await window.udx.log.info('No saved language found, using fallback: en')
+    return 'en'
+  } catch (error) {
+    await window.udx.log.error('Failed to read saved language from settings:', error)
+    return 'en'
+  }
+}
+
+/**
  * Automatically discover component namespaces using glob pattern matching
  * This uses Vite's import.meta.glob to find all components and apps with locales
  */
@@ -125,29 +144,87 @@ const discoverComponentNamespaces = async (): Promise<string[]> => {
   return namespaces
 }
 
-const initializeI18n = async (): Promise<void> => {
-  const namespaces = await discoverComponentNamespaces()
+let isInitialized = false
+let initializationPromise: Promise<void> | null = null
 
-  await i18n
-    .use(electronBackend)
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-      lng: 'en',
-      fallbackLng: 'en',
-      debug: is.dev ? true : false,
-      ns: namespaces,
-      defaultNS: 'common',
-      detection: {
-        order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
-        caches: ['localStorage']
-      }
-    })
+const initializeI18n = async (): Promise<void> => {
+  if (isInitialized) {
+    return
+  }
+
+  if (initializationPromise) {
+    return initializationPromise
+  }
+
+  initializationPromise = (async () => {
+    try {
+      const namespaces = await discoverComponentNamespaces()
+      const savedLanguage = await getSavedLanguage()
+
+      await i18n
+        .use(electronBackend)
+        .use(LanguageDetector)
+        .use(initReactI18next)
+        .init({
+          lng: savedLanguage,
+          fallbackLng: 'en',
+          debug: is.dev ? true : false,
+          ns: namespaces,
+          defaultNS: 'common',
+          detection: {
+            order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
+            caches: ['localStorage']
+          }
+        })
+
+      isInitialized = true
+      console.log('i18n initialized successfully')
+    } catch (error) {
+      console.error('Failed to initialize i18n:', error)
+      // Initialize with minimal config as fallback
+      await i18n.use(initReactI18next).init({
+        lng: 'en',
+        fallbackLng: 'en',
+        debug: true,
+        ns: ['common'],
+        defaultNS: 'common',
+        detection: {
+          order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
+          caches: ['localStorage']
+        }
+      })
+      isInitialized = true
+    }
+  })()
+
+  return initializationPromise
 }
 
-// Initialize i18n asynchronously
-initializeI18n().catch((error) => {
-  console.error('Failed to initialize i18n:', error)
-})
+/**
+ * Get current language for debugging purposes
+ * @returns Current language code
+ */
+export const getCurrentLanguage = (): string => {
+  return i18n.language || 'en'
+}
+
+/**
+ * Ensure i18n is initialized before using it
+ * @returns Promise that resolves when i18n is ready
+ */
+export const ensureI18nInitialized = (): Promise<void> => {
+  return initializeI18n()
+}
+
+/**
+ * Check if i18n is initialized
+ * @returns boolean indicating if i18n is ready
+ */
+export const isI18nInitialized = (): boolean => {
+  return isInitialized && i18n.isInitialized
+}
+
+// Start initialization immediately
+initializeI18n()
 
 export default i18n

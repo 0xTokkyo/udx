@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-05 00:09:53 by 0xTokkyo                                    */
-/*   Updated: 2025-10-09 18:51:29 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:15:50 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -25,10 +25,10 @@ const RPC = new DiscordRPC.Client({ transport: 'ipc' })
 
 export async function setDiscordActivity(activity?: DiscordRPC.Presence): Promise<void> {
   try {
-    log.info('Setting Discord activity...')
+    log.main.info('Setting Discord activity...')
 
     if (!RPC) {
-      log.warn('Discord RPC client is not initialized. Skipping activity update.')
+      log.main.warn('Discord RPC client is not initialized. Skipping activity update.')
       return
     }
 
@@ -45,6 +45,6 @@ export async function setDiscordActivity(activity?: DiscordRPC.Presence): Promis
   } catch (error: Error | unknown) {
     const errMsg = `Failed to set Discord activity: ${error instanceof Error ? error.message : String(error)}`
     // Log a Warning and not a Error to avoid spamming the logs if Discord is just... not running.
-    log.warn(errMsg)
+    log.main.warn(errMsg)
   }
 }

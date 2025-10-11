@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-09 21:29:06 by 0xTokkyo                                    */
-/*   Updated: 2025-10-11 10:36:44 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:08:09 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -64,7 +64,7 @@ const LangOptionItem: React.FC<LangOptionItemProps> = ({ label, onChange, isSele
 }
 
 const AppSettings: React.FC = () => {
-  const { t: common, i18n } = useTranslation('common')
+  const { t: common, i18n, ready } = useTranslation('common')
   const { t: trad } = useTranslation('AppSettings')
 
   const { isSettingsOpen, toggleAppLoadingIndicator } = useUI()
@@ -170,6 +170,17 @@ const AppSettings: React.FC = () => {
       console.error('Failed to change language:', error)
       setSettings(settings)
     }
+  }
+
+  // Protection : ne pas rendre si i18n n'est pas prêt
+  if (!ready) {
+    return (
+      <div id="app-settings" className={isSettingsOpen ? 'display' : ''}>
+        <div className="settings-section">
+          <div>Loading translations...</div>
+        </div>
+      </div>
+    )
   }
 
   return (

@@ -6,21 +6,20 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-09 18:06:43 by 0xTokkyo                                    */
-/*   Updated: 2025-10-10 21:14:03 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:12:24 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ensureI18nInitialized } from '@/utils/i18n'
 import App from '@/app'
 
 import '@/assets/css/global.css'
 import '@/assets/css/responsive.css'
 import '@/assets/css/app.css'
 import '@/assets/css/ui.css'
-
-import '@/utils/i18n'
 
 /**
  * @copilot
@@ -41,10 +40,16 @@ const queryClient = new QueryClient({
   }
 })
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </StrictMode>
-)
+const renderApp = async (): Promise<void> => {
+  await ensureI18nInitialized()
+
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </StrictMode>
+  )
+}
+
+renderApp()

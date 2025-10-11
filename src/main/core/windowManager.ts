@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:55:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-09 18:49:56 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:14:24 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -41,41 +41,41 @@ function setupWindowListeners(metadata: UDXWindowMetadata): void {
   // Track minimize state
   window.on('minimize', () => {
     metadata.isMinimized = true
-    log.info(`Window ${id} minimized`)
+    log.main.info(`Window ${id} minimized`)
   })
 
   window.on('restore', () => {
     metadata.isMinimized = false
-    log.info(`Window ${id} restored`)
+    log.main.info(`Window ${id} restored`)
   })
 
   // Track maximize state
   window.on('maximize', () => {
     metadata.isMaximized = true
-    log.info(`Window ${id} maximized`)
+    log.main.info(`Window ${id} maximized`)
   })
 
   window.on('unmaximize', () => {
     metadata.isMaximized = false
-    log.info(`Window ${id} unmaximized`)
+    log.main.info(`Window ${id} unmaximized`)
   })
 
   // Track focus state
   window.on('focus', () => {
     metadata.isFocused = true
-    log.info(`Window ${id} focused`)
+    log.main.info(`Window ${id} focused`)
   })
 
   // Clean up on close
   window.on('closed', () => {
     UDXWindows.delete(id)
-    log.info(`Window ${id} closed and removed from registry`)
+    log.main.info(`Window ${id} closed and removed from registry`)
   })
 
   // Ready to show
   window.once('ready-to-show', () => {
     window.show()
-    log.info(`Window ${id} ready and shown`)
+    log.main.info(`Window ${id} ready and shown`)
   })
 }
 
@@ -151,7 +151,7 @@ export async function createWindow(
 
     // Add to UDXWindows registry
     UDXWindows.set(windowId, metadata)
-    log.info(`Window ${windowId} created and registered`)
+    log.main.info(`Window ${windowId} created and registered`)
 
     // Show window when ready
     window.once('ready-to-show', () => {
@@ -162,7 +162,7 @@ export async function createWindow(
     return windowId
   } catch (error: Error | unknown) {
     const errMsg = `Failed to create window: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }
@@ -181,10 +181,10 @@ export async function reloadWindow(target: string | UDXPossibleWindows): Promise
     }
 
     metadata.window.reload()
-    log.info(`Window ${metadata.id} reloaded`)
+    log.main.info(`Window ${metadata.id} reloaded`)
   } catch (error: Error | unknown) {
     const errMsg = `Failed to reload ${target} window: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }
@@ -243,16 +243,16 @@ export function closeWindow(identifier: string | UDXPossibleWindows): boolean {
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for closing`)
+      log.main.warn(`Window ${identifier} not found for closing`)
       return false
     }
 
     metadata.window.close()
-    log.info(`Window ${metadata.id} closed`)
+    log.main.info(`Window ${metadata.id} closed`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to close window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }
@@ -301,16 +301,16 @@ export function minimizeWindow(identifier: string | UDXPossibleWindows): boolean
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for minimizing`)
+      log.main.warn(`Window ${identifier} not found for minimizing`)
       return false
     }
 
     metadata.window.minimize()
-    log.info(`Window ${metadata.id} minimized`)
+    log.main.info(`Window ${metadata.id} minimized`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to minimize window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }
@@ -324,7 +324,7 @@ export function maximizeWindow(identifier: string | UDXPossibleWindows): boolean
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for maximizing`)
+      log.main.warn(`Window ${identifier} not found for maximizing`)
       return false
     }
 
@@ -333,11 +333,11 @@ export function maximizeWindow(identifier: string | UDXPossibleWindows): boolean
     } else {
       metadata.window.maximize()
     }
-    log.info(`Window ${metadata.id} maximize toggled`)
+    log.main.info(`Window ${metadata.id} maximize toggled`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to maximize window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }
@@ -351,16 +351,16 @@ export function restoreWindow(identifier: string | UDXPossibleWindows): boolean 
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for restoring`)
+      log.main.warn(`Window ${identifier} not found for restoring`)
       return false
     }
 
     metadata.window.restore()
-    log.info(`Window ${metadata.id} restored`)
+    log.main.info(`Window ${metadata.id} restored`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to restore window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }
@@ -374,7 +374,7 @@ export function focusWindow(identifier: string | UDXPossibleWindows): boolean {
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for focusing`)
+      log.main.warn(`Window ${identifier} not found for focusing`)
       return false
     }
 
@@ -382,11 +382,11 @@ export function focusWindow(identifier: string | UDXPossibleWindows): boolean {
       metadata.window.restore()
     }
     metadata.window.focus()
-    log.info(`Window ${metadata.id} focused`)
+    log.main.info(`Window ${metadata.id} focused`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to focus window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }
@@ -400,16 +400,16 @@ export function showWindow(identifier: string | UDXPossibleWindows): boolean {
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for showing`)
+      log.main.warn(`Window ${identifier} not found for showing`)
       return false
     }
 
     metadata.window.show()
-    log.info(`Window ${metadata.id} shown`)
+    log.main.info(`Window ${metadata.id} shown`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to show window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }
@@ -422,10 +422,10 @@ export function showAllWindows(): void {
   for (const metadata of UDXWindows.values()) {
     try {
       metadata.window.show()
-      log.info(`Window ${metadata.id} shown`)
+      log.main.info(`Window ${metadata.id} shown`)
     } catch (error: Error | unknown) {
       const errMsg = `Failed to show window ${metadata.id}: ${error instanceof Error ? error.message : String(error)}`
-      log.error(errMsg)
+      log.main.error(errMsg)
     }
   }
 }
@@ -439,16 +439,16 @@ export function hideWindow(identifier: string | UDXPossibleWindows): boolean {
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for hiding`)
+      log.main.warn(`Window ${identifier} not found for hiding`)
       return false
     }
 
     metadata.window.hide()
-    log.info(`Window ${metadata.id} hidden`)
+    log.main.info(`Window ${metadata.id} hidden`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to hide window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }
@@ -462,16 +462,16 @@ export function refreshWindowContent(identifier: string | UDXPossibleWindows): b
   try {
     const metadata = getWindowMetadata(identifier)
     if (!metadata) {
-      log.warn(`Window ${identifier} not found for content refresh`)
+      log.main.warn(`Window ${identifier} not found for content refresh`)
       return false
     }
 
     metadata.window.webContents.reload()
-    log.info(`Window ${metadata.id} content reloaded`)
+    log.main.info(`Window ${metadata.id} content reloaded`)
     return true
   } catch (error: Error | unknown) {
     const errMsg = `Failed to refresh content of window ${identifier}: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     return false
   }
 }

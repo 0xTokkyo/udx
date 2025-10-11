@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 02:46:27 by 0xTokkyo                                    */
-/*   Updated: 2025-10-09 18:50:59 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:17:37 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -83,9 +83,9 @@ async function initializeMainProcess(): Promise<void> {
      */
     await setDiscordActivity()
 
-    log.info('UDX is starting.')
+    log.main.info('UDX is starting.')
   } catch (error: Error | unknown) {
-    log.error(error instanceof Error ? error.message : String(error))
+    log.main.error(error instanceof Error ? error.message : String(error))
     process.exit(1)
   }
 }
@@ -97,7 +97,7 @@ async function initializeMainProcess(): Promise<void> {
 app.on('window-all-closed', function (): void {
   // Always quit the app when all windows are closed, including on macOS
   if (getAllWindows().length === 0) {
-    log.info('All windows closed, quitting application')
+    log.main.info('All windows closed, quitting application')
     app.quit()
   }
 })
@@ -113,7 +113,7 @@ app.on('before-quit', (): void => {
     }
   } catch (error: Error | unknown) {
     const errMsg: string = `app.on(before-quit) => Error: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
   }
 })
 
@@ -128,7 +128,7 @@ app.on('will-quit', (): void => {
     }
   } catch (error: Error | unknown) {
     const errMsg: string = `app.on(will-quit) => Error: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
   }
 })
 

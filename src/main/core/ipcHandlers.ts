@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 15:04:32 by 0xTokkyo                                    */
-/*   Updated: 2025-10-11 09:43:10 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:14:56 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -43,7 +43,7 @@ import path from 'path'
 
 export async function registerIpcHandlers(): Promise<void> {
   try {
-    log.info('Registering IPC handlers...')
+    log.main.info('Registering IPC handlers...')
 
     let store = await getStore()
 
@@ -57,7 +57,7 @@ export async function registerIpcHandlers(): Promise<void> {
 
         if (!storeEncryptionKey) {
           const errMsg = 'VITE_STORAGE_ENCRYPTION_KEY not found in environment variables. Aborting.'
-          log.warn(errMsg)
+          log.main.warn(errMsg)
           throw new Error(errMsg)
         }
 
@@ -66,10 +66,10 @@ export async function registerIpcHandlers(): Promise<void> {
         })
 
         setStore(store)
-        log.info('Store initialized successfully.')
+        log.main.info('Store initialized successfully.')
       } catch (error: Error | unknown) {
         const errMsg = `Failed to initialize store: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         throw new Error(errMsg)
       }
     }
@@ -83,7 +83,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @param {any} property
      */
     ipcMain.handle('electron-store-get', async (_event, key) => {
-      log.info('IPC electron-store-get called [', key, ']')
+      log.main.info('IPC electron-store-get called [', key, ']')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (store as any).get(key)
     })
@@ -95,7 +95,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @return {any} The value that was set
      */
     ipcMain.handle('electron-store-set', async (_event, property, val) => {
-      log.info('IPC electron-store-set called [', property, ']=', val)
+      log.main.info('IPC electron-store-set called [', property, ']=', val)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(store as any).set(property, val)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -108,7 +108,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @return {void}
      */
     ipcMain.handle('electron-store-delete', async (_event, key) => {
-      log.info('IPC electron-store-delete called [', key, ']')
+      log.main.info('IPC electron-store-delete called [', key, ']')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(store as any).delete(key as string)
     })
@@ -118,7 +118,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {void}
      */
     ipcMain.handle('electron-store-clear', async () => {
-      log.info('IPC electron-store-clear called')
+      log.main.info('IPC electron-store-clear called')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(store as any).clear()
     })
@@ -138,7 +138,7 @@ export async function registerIpcHandlers(): Promise<void> {
         return true
       } catch (error: Error | unknown) {
         const errMsg: string = `Error storing auth token: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         return false
       }
     })
@@ -148,14 +148,14 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {string | null}
      */
     ipcMain.handle('get-auth-token', (): string | null => {
-      log.info('Starting get-auth-token()')
+      log.main.info('Starting get-auth-token()')
       try {
         // Get directly - electron-store handles decryption automatically
         const token = store.get(import.meta.env.VITE_AUTH_TOKEN) as string
         return token || null
       } catch (error: Error | unknown) {
         const errMsg: string = `Error retrieving auth token: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         return null
       }
     })
@@ -165,7 +165,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {boolean}
      */
     ipcMain.handle('clear-auth-token', (): boolean => {
-      log.info('IPC clear-auth-token called')
+      log.main.info('IPC clear-auth-token called')
       try {
         store.delete(import.meta.env.VITE_AUTH_TOKEN)
         closeAllWindows()
@@ -175,7 +175,7 @@ export async function registerIpcHandlers(): Promise<void> {
         return true
       } catch (error: Error | unknown) {
         const errMsg: string = `Error clearing auth token: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         return false
       }
     })
@@ -187,21 +187,21 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {void}
      */
     ipcMain.on('open-external-link', (_event, url: URL) => {
-      log.info('IPC open-external-link called [', url.href, ']')
+      log.main.info('IPC open-external-link called [', url.href, ']')
       try {
         if (url && typeof url === 'object' && url.protocol === 'https:') {
           // eslint-disable-next-line no-control-regex
           const unsafePattern = /[\u0000-\u001F\u007F-\u009F]/g
           if (unsafePattern.test(url.href)) {
-            log.warn('URL contains unsafe characters, aborting openExternal.')
+            log.main.warn('URL contains unsafe characters, aborting openExternal.')
             throw new Error('URL contains unsafe characters')
           }
-          log.info(`Opening external link: ${url.href}`)
+          log.main.info(`Opening external link: ${url.href}`)
           shell.openExternal(url.href)
         }
       } catch (error: Error | unknown) {
         const errMsg: string = `Error opening external link: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         return
       }
     })
@@ -211,7 +211,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {string}
      */
     ipcMain.handle('get-app-path', (): string => {
-      log.info('IPC get-app-path called')
+      log.main.info('IPC get-app-path called')
       return getAppDataPath() as string
     })
 
@@ -220,7 +220,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {string}
      */
     ipcMain.handle('get-local-models-folder-path', (): string => {
-      log.info('IPC get-local-models-folder-path called')
+      log.main.info('IPC get-local-models-folder-path called')
       return getModelsDirPath() as string
     })
 
@@ -233,18 +233,18 @@ export async function registerIpcHandlers(): Promise<void> {
       try {
         const modelsDir = getModelsDirPath()
         if (!modelsDir) {
-          log.warn('Models directory not found')
+          log.main.warn('Models directory not found')
           return false
         }
         const modelPath = path.join(modelsDir, model)
         const exists = await access(modelPath)
           .then(() => true)
           .catch(() => false)
-        log.info(`Model ${model} exists: ${exists}`)
+        log.main.info(`Model ${model} exists: ${exists}`)
         return exists
       } catch (error: Error | unknown) {
         const errMsg: string = `Error checking if model exists: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         return false
       }
     })
@@ -255,12 +255,12 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {Promise<string | null>}
      */
     ipcMain.handle('read-file', async (_event, filePath): Promise<string | null> => {
-      log.info('Starting read-file()')
+      log.main.info('Starting read-file()')
       return new Promise<string | null>((resolve) => {
         readFile(filePath, 'utf-8', (err, data) => {
           if (err) {
             const errMsg: string = `Error reading file ${filePath}: ${err.message}`
-            log.error(errMsg)
+            log.main.error(errMsg)
             resolve(null)
             return
           }
@@ -274,7 +274,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {Promise<any>}
      */
     ipcMain.handle('read-settings', async (): Promise<AppSettings | null> => {
-      log.info('IPC read-settings called')
+      log.main.info('IPC read-settings called')
       const data = await readSettings()
       return data ? data : null
     })
@@ -285,13 +285,13 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {Promise<boolean>}
      */
     ipcMain.handle('write-settings', async (_event, settings: AppSettings): Promise<boolean> => {
-      log.info('IPC write-settings called')
+      log.main.info('IPC write-settings called')
       try {
         await writeSettings(settings)
         return true
       } catch (error: Error | unknown) {
         const errMsg: string = `Error writing settings: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         return false
       }
     })
@@ -301,13 +301,13 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {Promise<AppSettings | null>}
      */
     ipcMain.handle('create-default-settings', async (): Promise<AppSettings | null> => {
-      log.info('IPC create-default-settings called')
+      log.main.info('IPC create-default-settings called')
       try {
         await createDefaultSettings()
         return await readSettings()
       } catch (error: Error | unknown) {
         const errMsg: string = `Error creating default settings: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
         return null
       }
     })
@@ -338,7 +338,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {void}
      */
     ipcMain.on('restart-main-process', (): void => {
-      log.info('IPC restart-main-process called')
+      log.main.info('IPC restart-main-process called')
       app.relaunch()
       app.exit(0)
     })
@@ -348,7 +348,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {void}
      */
     ipcMain.on('close-window', (event): void => {
-      log.info('IPC close-window called')
+      log.main.info('IPC close-window called')
       try {
         const senderWindow = BrowserWindow.fromWebContents(event.sender)
         if (senderWindow) {
@@ -360,24 +360,24 @@ export async function registerIpcHandlers(): Promise<void> {
 
               const remainingWindows = getAllWindows()
               if (remainingWindows.length === 0) {
-                log.info('Last window closed, quitting application')
+                log.main.info('Last window closed, quitting application')
                 app.quit()
               }
               return
             }
           }
-          log.warn('Window metadata not found, closing window directly')
+          log.main.warn('Window metadata not found, closing window directly')
           senderWindow.close()
 
           const remainingWindows = getAllWindows()
           if (remainingWindows.length === 0) {
-            log.info('Last window closed, quitting application')
+            log.main.info('Last window closed, quitting application')
             app.quit()
           }
         }
       } catch (error: Error | unknown) {
         const errMsg = `Error closing window: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
       }
     })
 
@@ -386,7 +386,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {void}
      */
     ipcMain.on('minimize-window', (event): void => {
-      log.info('IPC minimize-window called')
+      log.main.info('IPC minimize-window called')
       try {
         const senderWindow = BrowserWindow.fromWebContents(event.sender)
         if (senderWindow) {
@@ -398,12 +398,12 @@ export async function registerIpcHandlers(): Promise<void> {
               return
             }
           }
-          log.warn('Window metadata not found, minimizing window directly')
+          log.main.warn('Window metadata not found, minimizing window directly')
           senderWindow.minimize()
         }
       } catch (error: Error | unknown) {
         const errMsg = `Error minimizing window: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
       }
     })
 
@@ -412,7 +412,7 @@ export async function registerIpcHandlers(): Promise<void> {
      * @returns {void}
      */
     ipcMain.on('maximize-window', (event): void => {
-      log.info('IPC maximize-window called')
+      log.main.info('IPC maximize-window called')
       try {
         const senderWindow = BrowserWindow.fromWebContents(event.sender)
         if (senderWindow) {
@@ -424,7 +424,7 @@ export async function registerIpcHandlers(): Promise<void> {
               return
             }
           }
-          log.warn('Window metadata not found, maximizing window directly')
+          log.main.warn('Window metadata not found, maximizing window directly')
           if (senderWindow.isMaximized()) {
             senderWindow.unmaximize()
           } else {
@@ -433,21 +433,21 @@ export async function registerIpcHandlers(): Promise<void> {
         }
       } catch (error: Error | unknown) {
         const errMsg = `Error maximizing window: ${error instanceof Error ? error.message : String(error)}`
-        log.error(errMsg)
+        log.main.error(errMsg)
       }
     })
 
     // IPC handlers are registered
     setIpcHandlersRegistered(true)
 
-    log.info('IPC handlers registered successfully.')
+    log.main.info('IPC handlers registered successfully.')
   } catch (error: Error | unknown) {
     const errMsg = `Failed to register IPC handlers: ${error instanceof Error ? error.message : String(error)}`
-    log.error('registerIpcHandlers() - FATAL ERROR:', error)
-    log.error('registerIpcHandlers() - Error type:', typeof error)
-    log.error('registerIpcHandlers() - Error constructor:', error?.constructor?.name)
+    log.main.error('registerIpcHandlers() - FATAL ERROR:', error)
+    log.main.error('registerIpcHandlers() - Error type:', typeof error)
+    log.main.error('registerIpcHandlers() - Error constructor:', error?.constructor?.name)
     if (error instanceof Error) {
-      log.error('registerIpcHandlers() - Error stack:', error.stack)
+      log.main.error('registerIpcHandlers() - Error stack:', error.stack)
     }
     throw new Error(errMsg)
   }

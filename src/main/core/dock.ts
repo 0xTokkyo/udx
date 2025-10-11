@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 23:45:39 by 0xTokkyo                                    */
-/*   Updated: 2025-10-09 18:50:41 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:17:38 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -87,7 +87,7 @@ export async function createDockMenuTemplate(): Promise<Electron.Menu> {
     ])
   } catch (error: Error | unknown) {
     const errMsg = `Failed to create dock menu template: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }

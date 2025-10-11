@@ -6,12 +6,12 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 13:38:38 by 0xTokkyo                                    */
-/*   Updated: 2025-10-09 18:51:34 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:16:40 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
 import { ProtocolState } from '@main/types'
-import { platform, logger } from '@main/core'
+import { platform, log } from '@main/core'
 import { app } from 'electron'
 import path from 'path'
 
@@ -39,7 +39,7 @@ function registerDevelopmentProtocol(): void {
       ])
 
       if (success) {
-        logger.debug(`Development protocol ${PROTOCOL_SCHEME}:// registered successfully`)
+        log.main.debug(`Development protocol ${PROTOCOL_SCHEME}:// registered successfully`)
         protocolState.isRegistered = true
       } else {
         throw new Error('Failed to register development protocol')
@@ -49,7 +49,7 @@ function registerDevelopmentProtocol(): void {
     }
   } catch (error) {
     const message = `Failed to register development protocol: ${error instanceof Error ? error.message : String(error)}`
-    logger.error(message)
+    log.main.error(message)
     throw new Error(message)
   }
 }
@@ -63,14 +63,14 @@ function registerProductionProtocol(): void {
     const success = app.setAsDefaultProtocolClient(PROTOCOL_SCHEME)
 
     if (success) {
-      logger.debug(`Production protocol ${PROTOCOL_SCHEME}:// registered successfully`)
+      log.main.debug(`Production protocol ${PROTOCOL_SCHEME}:// registered successfully`)
       protocolState.isRegistered = true
     } else {
       throw new Error('Failed to register production protocol')
     }
   } catch (error) {
     const message = `Failed to register production protocol: ${error instanceof Error ? error.message : String(error)}`
-    logger.error(message)
+    log.main.error(message)
     throw new Error(message)
   }
 }
@@ -86,20 +86,20 @@ function registerMacOSProtocol(): void {
         const success = app.setAsDefaultProtocolClient(PROTOCOL_SCHEME)
 
         if (success) {
-          logger.debug(`macOS protocol ${PROTOCOL_SCHEME}:// registered on will-finish-launching`)
+          log.main.debug(`macOS protocol ${PROTOCOL_SCHEME}:// registered on will-finish-launching`)
           protocolState.isRegistered = true
         } else {
-          logger.warn('Failed to register macOS protocol on will-finish-launching')
+          log.main.warn('Failed to register macOS protocol on will-finish-launching')
         }
       } catch (error) {
-        logger.error('Error during macOS protocol registration:', error)
+        log.main.error('Error during macOS protocol registration:', error)
       }
     })
 
-    logger.debug('macOS protocol registration event listener added')
+    log.main.debug('macOS protocol registration event listener added')
   } catch (error) {
     const message = `Failed to setup macOS protocol registration: ${error instanceof Error ? error.message : String(error)}`
-    logger.error(message)
+    log.main.error(message)
     throw new Error(message)
   }
 }
@@ -111,7 +111,7 @@ function registerMacOSProtocol(): void {
  * @throws {Error} If protocol initialization fails
  */
 export async function initializeProtocols(): Promise<void> {
-  logger.info(`Initializing custom protocol: ${PROTOCOL_SCHEME}://`)
+  log.main.info(`Initializing custom protocol: ${PROTOCOL_SCHEME}://`)
 
   try {
     // Reset state before registration
@@ -119,23 +119,23 @@ export async function initializeProtocols(): Promise<void> {
 
     // Register protocol based on app mode
     if (process.defaultApp) {
-      logger.debug('Registering protocol for development mode')
+      log.main.debug('Registering protocol for development mode')
       registerDevelopmentProtocol()
     } else {
-      logger.debug('Registering protocol for production mode')
+      log.main.debug('Registering protocol for production mode')
       registerProductionProtocol()
     }
 
     // Additional macOS-specific registration
     if (platform.isMacOS) {
-      logger.debug('Setting up macOS-specific protocol registration')
+      log.main.debug('Setting up macOS-specific protocol registration')
       registerMacOSProtocol()
     }
 
-    logger.info(`Custom protocol ${PROTOCOL_SCHEME}:// initialization completed`)
+    log.main.info(`Custom protocol ${PROTOCOL_SCHEME}:// initialization completed`)
   } catch (error) {
     const message = `Protocol initialization failed: ${error instanceof Error ? error.message : String(error)}`
-    logger.error(message)
+    log.main.error(message)
     throw new Error(message)
   }
 }
@@ -162,7 +162,7 @@ export function getProtocolScheme(): string {
  * @returns {Promise<void>}
  */
 export async function handleProtocolUrl(url: string): Promise<void> {
-  logger.info(`Handling protocol URL: ${url}`)
+  log.main.info(`Handling protocol URL: ${url}`)
 
   try {
     if (!url.startsWith(`${PROTOCOL_SCHEME}://`)) {
@@ -174,15 +174,15 @@ export async function handleProtocolUrl(url: string): Promise<void> {
     const path = urlObj.pathname
     const searchParams = urlObj.searchParams
 
-    logger.debug(`Protocol path: ${path}`)
-    logger.debug(`Protocol params:`, Object.fromEntries(searchParams))
+    log.main.debug(`Protocol path: ${path}`)
+    log.main.debug(`Protocol params:`, Object.fromEntries(searchParams))
 
     // TODO: Implement specific protocol handling logic based on path and parameters
 
-    logger.info('Protocol URL handled successfully')
+    log.main.info('Protocol URL handled successfully')
   } catch (error) {
     const message = `Failed to handle protocol URL: ${error instanceof Error ? error.message : String(error)}`
-    logger.error(message)
+    log.main.error(message)
     throw new Error(message)
   }
 }

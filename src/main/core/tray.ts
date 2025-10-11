@@ -6,7 +6,7 @@
 /*   By: 0xTokkyo                                        \____//_____//_/|_|     */
 /*                                                                               */
 /*   Created: 2025-10-04 19:06:01 by 0xTokkyo                                    */
-/*   Updated: 2025-10-09 18:50:14 by 0xTokkyo                                    */
+/*   Updated: 2025-10-11 12:14:38 by 0xTokkyo                                    */
 /*                                                                               */
 /* ***************************************************************************** */
 
@@ -43,14 +43,14 @@ const TRAY_ICON_PATH = path.join(
  */
 export async function createTray(): Promise<Tray> {
   try {
-    log.info('Creating Tray instance...')
+    log.main.info('Creating Tray instance...')
 
     let tray: Tray | null = getTray()
 
     const userLoggedIn = userIsLoggedIn()
 
     if (!tray) {
-      log.info('Creating new tray instance.')
+      log.main.info('Creating new tray instance.')
       tray = new Tray(TRAY_ICON_PATH)
 
       const contextMenu = Menu.buildFromTemplate([
@@ -65,7 +65,7 @@ export async function createTray(): Promise<Tray> {
           enabled: userLoggedIn,
           click: async () => {
             if (getIsQuitting() || !userLoggedIn) {
-              log.warn('App is quitting or user is not logged in, not creating new window.')
+              log.main.warn('App is quitting or user is not logged in, not creating new window.')
               return
             }
             await createWindow({ type: 'main', rendererHTMLFile: 'index' })
@@ -88,12 +88,12 @@ export async function createTray(): Promise<Tray> {
 
       return tray
     } else {
-      log.info('Tray already exists, returning existing instance.')
+      log.main.info('Tray already exists, returning existing instance.')
       return tray
     }
   } catch (error: Error | unknown) {
     const errMsg = `Failed to create tray: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }
@@ -106,15 +106,15 @@ export function destroyTray(): void {
   try {
     const tray = getTray()
     if (tray) {
-      log.warn('Destroying tray instance.')
+      log.main.warn('Destroying tray instance.')
       tray.destroy()
       setTray(null)
     } else {
-      log.info('No tray instance to destroy.')
+      log.main.info('No tray instance to destroy.')
     }
   } catch (error: Error | unknown) {
     const errMsg = `Failed to destroy tray: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }
@@ -128,15 +128,15 @@ export function updateTrayIcon(iconPath: string): void {
   try {
     const tray = getTray()
     if (tray) {
-      log.info('Updating tray icon.')
+      log.main.info('Updating tray icon.')
       const newIcon = nativeImage.createFromPath(iconPath)
       tray.setImage(newIcon)
     } else {
-      log.warn('No tray instance to update icon.')
+      log.main.warn('No tray instance to update icon.')
     }
   } catch (error: Error | unknown) {
     const errMsg = `Failed to update tray icon: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }
@@ -150,14 +150,14 @@ export function updateTrayTooltip(tooltip: string): void {
   try {
     const tray = getTray()
     if (tray) {
-      log.info('Updating tray tooltip.')
+      log.main.info('Updating tray tooltip.')
       tray.setToolTip(tooltip)
     } else {
-      log.warn('No tray instance to update tooltip.')
+      log.main.warn('No tray instance to update tooltip.')
     }
   } catch (error: Error | unknown) {
     const errMsg = `Failed to update tray tooltip: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }
@@ -172,7 +172,7 @@ export function updateTrayMenuIcon(iconPath: string): void {
     const tray: Tray | null = getTray()
     const trayContextMenu: Menu | null = getTrayContextMenu()
     if (tray && trayContextMenu) {
-      log.info('Updating tray menu icon.')
+      log.main.info('Updating tray menu icon.')
       if (trayContextMenu && trayContextMenu.items.length > 0) {
         const topItem = trayContextMenu.items[0]
         topItem.icon = nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
@@ -181,14 +181,14 @@ export function updateTrayMenuIcon(iconPath: string): void {
         //? We still update global state here too. I need to do it a better way later.
         setTrayContextMenu(trayContextMenu)
       } else {
-        log.warn('Tray context menu is empty, cannot update icon.')
+        log.main.warn('Tray context menu is empty, cannot update icon.')
       }
     } else {
-      log.warn('No tray instance to update menu icon.')
+      log.main.warn('No tray instance to update menu icon.')
     }
   } catch (error: Error | unknown) {
     const errMsg = `Failed to update tray menu icon: ${error instanceof Error ? error.message : String(error)}`
-    log.error(errMsg)
+    log.main.error(errMsg)
     throw new Error(errMsg)
   }
 }
